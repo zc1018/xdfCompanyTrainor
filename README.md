@@ -2,6 +2,15 @@
 
 静态 HTML / CSS / JavaScript 页面，沿用现有项目技术栈。无需构建；图片、字体和脚本全部在本地提供，运行时无第三方请求。
 
+## 线上部署
+
+- 生产网址：https://xdf-company-trainor.vercel.app
+- GitHub：https://github.com/zc1018/xdfCompanyTrainor
+- Vercel 项目：`cha-d/xdf-company-trainor`，静态站点，无构建步骤。
+- 手动发布：在项目目录运行 `npx vercel deploy --prod`。
+- Git 自动部署尚未连接：Vercel 账号需要先添加 GitHub Login Connection，再运行 `npx vercel git connect`。目前单独 push 不会自动更新线上页面。
+- `.vercelignore` 排除开发文档、测试脚本和旧素材；原始 PPT 不在仓库内。
+
 ## 预览
 
 在上级目录 `/Users/xdf/Documents/XDF/外刊` 启动静态服务：
@@ -70,4 +79,4 @@ python3 -m http.server 4199 --bind 127.0.0.1
 1. 填入已确认的销售渠道，并由负责人实际完成一次联系/接收测试。
 2. 确认公开发布域名、部署方式及合作机构标识的对外展示权限。页头、页尾已使用新东方官网标识。
 3. 如增加线索系统，完成真实收件验证与隐私合规检查。
-4. 本轮为本地设计与功能验证，未部署公开网站，未验证真实企业转化率。
+4. 页面已部署至上方 Vercel 生产网址；真实销售接收与企业转化率仍未验证。
