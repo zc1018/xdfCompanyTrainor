@@ -1,0 +1,14 @@
+.git/
+.impeccable.md
+*.md
+scripts/
+qa-capture.cjs
+qa-output/
+node_modules/
+assets/ppt/
+assets/logos/
+assets/charts/
+assets/ai-reading-scene.png
+assets/training-scene.png
+assets/favicon.svg
+assets/brands/SOURCES.md

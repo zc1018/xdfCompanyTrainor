@@ -1,0 +1,12 @@
+.DS_Store
+.vercel/
+node_modules/
+.env*
+qa-output/
+# Preserved local exploration assets, not used by the published page.
+assets/ppt/
+assets/logos/
+assets/charts/
+assets/ai-reading-scene.png
+assets/training-scene.png
+assets/favicon.svg
