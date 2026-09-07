@@ -139,6 +139,7 @@
 
   // Empty configuration is a deliberate pending state, never a fictional contact address.
   const config = window.ENTERPRISE_SALES || {};
+  const contactName = typeof config.contactName === "string" ? config.contactName.trim().slice(0, 80) : "";
   const email = typeof config.email === "string" && /^[A-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Z0-9](?:[A-Z0-9.-]*[A-Z0-9])?\.[A-Z]{2,}$/i.test(config.email) ? config.email : "";
   const phoneValue = typeof config.phone === "string" ? config.phone : "";
   const phoneDigits = phoneValue.replace(/\D/g, "");
@@ -149,6 +150,9 @@
   const consultationUrl = safeHttps(config.consultationUrl);
   const wechat = typeof config.wechatId === "string" && /^[a-zA-Z][a-zA-Z\d_-]{5,30}$/.test(config.wechatId) ? config.wechatId : "";
   const links = $("#sales-links");
+  links.replaceChildren();
+  $("#planner-name").textContent = contactName;
+  $("#planner-name").hidden = !contactName;
   function addChannel(text, href, external = false) {
     const anchor = document.createElement("a"); anchor.textContent = text; anchor.href = href;
     if (external) { anchor.target = "_blank"; anchor.rel = "noopener noreferrer"; }
@@ -156,21 +160,21 @@
   }
   if (email) addChannel(`邮件咨询：${email}`, `mailto:${email}`);
   if (phone) addChannel(`电话咨询：${phone}`, `tel:${phone.replace(/[^\d+]/g, "")}`);
-  if (consultationUrl) addChannel("在线联系培训顾问 ↗", consultationUrl, true);
+  if (consultationUrl) addChannel("在线联系企业培训规划师 ↗", consultationUrl, true);
   if (wechat) {
-    const button = document.createElement("button"); button.type = "button"; button.textContent = `复制销售微信：${wechat}`;
+    const button = document.createElement("button"); button.type = "button"; button.textContent = `复制规划师微信：${wechat}`;
     button.addEventListener("click", async () => {
       try { await navigator.clipboard.writeText(wechat); button.textContent = `已复制微信：${wechat}`; }
       catch { button.textContent = `请手动复制微信号：${wechat}`; }
     }); links.append(button);
     if (typeof config.wechatQrImage === "string" && /^assets\/[\w/.-]+\.(png|jpe?g|webp)$/i.test(config.wechatQrImage) && !config.wechatQrImage.includes("..")) {
-      const qr = document.createElement("img"); qr.src = config.wechatQrImage; qr.alt = "销售顾问微信二维码"; qr.width = 140; qr.height = 140; qr.loading = "lazy"; links.append(qr);
+      const qr = document.createElement("img"); qr.src = config.wechatQrImage; qr.alt = "企业培训规划师微信二维码"; qr.width = 140; qr.height = 140; qr.loading = "lazy"; links.append(qr);
     }
   }
   const hasContact = links.children.length > 0;
   $("#sales-pending").hidden = hasContact;
   $("#sales-channels").hidden = !hasContact;
-  if (hasContact) $("#result-help").textContent = "复制或保存摘要后，通过本页已公布的销售渠道联系培训顾问。";
+  $("#result-help").textContent = email ? "可将摘要带入邮件草稿，也可复制后联系企业培训规划师。邮件需在邮件应用中确认发送。" : hasContact ? "复制或保存摘要后，通过本页联系方式与企业培训规划师沟通。" : "复制或保存摘要，待联系方式公布后用于咨询。";
 
   const form = $("#inquiry-form");
   const summary = $("#inquiry-summary");
@@ -201,7 +205,7 @@
   $("#copy-summary").addEventListener("click", async () => {
     try {
       await navigator.clipboard.writeText(summary.value);
-      $("#copy-status").textContent = "摘要已复制，尚未发送给销售。";
+      $("#copy-status").textContent = "摘要已复制，尚未发送给企业培训规划师。";
     } catch {
       summary.focus(); summary.select();
       $("#copy-status").textContent = "浏览器未允许自动复制，已选中摘要。请手动复制，或保存为文本。";
