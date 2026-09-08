@@ -24,8 +24,8 @@ async function snapshot(page, name) {
   await fs.mkdir(output, { recursive: true });
   const browser = await chromium.launch({ channel: 'chrome', headless: true });
   try {
-    for (const width of [320, 390, 768, 1024, 1440]) {
-      const context = await browser.newContext({ viewport: { width, height: width < 800 ? 844 : 1000 }, reducedMotion: 'reduce' });
+    for (const width of [320, 390, 768, 1024, 1440, 1932]) {
+      const context = await browser.newContext({ viewport: { width, height: width === 1932 ? 1354 : width < 800 ? 844 : 1000 }, reducedMotion: 'reduce' });
       const { page, errors } = await load(context);
       const dom = await page.evaluate(() => {
         const ids = [...document.querySelectorAll('[id]')].map(e => e.id);
@@ -38,6 +38,9 @@ async function snapshot(page, name) {
           imagesLoaded: [...document.images].every(i => i.complete && i.naturalWidth > 0),
           brandLogos: document.querySelectorAll('img[src^="assets/brands/"]').length,
           h1Count: document.querySelectorAll('h1').length,
+          heroServiceCount: document.querySelectorAll('.hero-service-list > div').length,
+          heroImages: document.querySelectorAll('#home img').length,
+          decorativeImageRequests: performance.getEntriesByType('resource').filter(r => r.name.includes('/assets/workplace-')).length,
           remoteResources: performance.getEntriesByType('resource').filter(r => !r.name.startsWith(location.origin)).map(r => r.name),
           scrollBehavior: getComputedStyle(document.documentElement).scrollBehavior
         };
@@ -46,10 +49,11 @@ async function snapshot(page, name) {
       check(`${width}px: anchors/IDs/headings valid`, dom.invalidAnchors.length === 0 && dom.duplicateIds.length === 0 && dom.h1Count === 1);
       check(`${width}px: no failed images or runtime errors`, dom.imagesLoaded && errors.length === 0);
       check(`${width}px: brand, project and partner logos present`, dom.brandLogos === 9);
+      check(`${width}px: services replace decorative hero image without downloading it`, dom.heroServiceCount === 3 && dom.heroImages === 0 && dom.decorativeImageRequests === 0);
       check(`${width}px: no remote runtime dependencies`, dom.remoteResources.length === 0);
       check(`${width}px: reduced motion honored`, dom.scrollBehavior === 'auto');
       report.viewports.push(dom);
-      if (width === 390 || width === 1440) {
+      if (width === 390 || width === 1440 || width === 1932) {
         await snapshot(page, `verified-${width}-hero`);
         await snapshot(page, `verified-${width}-full`);
         await page.locator('.proof-band').screenshot({ path: path.join(output, `verified-${width}-project-logos.png`) });
