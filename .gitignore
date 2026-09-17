@@ -1,6 +1,7 @@
 .DS_Store
 .vercel/
 node_modules/
+dist/
 .env*
 qa-output/
 # Preserved local exploration assets, not used by the published page.

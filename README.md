@@ -1,83 +1,56 @@
-# 新东方企业英语培训页
+# 新东方企业英语培训 · Motion 主页分支
 
-静态 HTML / CSS / JavaScript 页面，沿用现有项目技术栈。无需构建；图片、字体和脚本全部在本地提供，运行时无第三方请求。
+分支：`feat/enterprise-motion-home`，基于 `main` 的 `788cc41`。这是独立 UI/UX 方案，不替换当前生产站点。
 
-## 线上部署
-
-- 生产网址：https://xdf-company-trainor.vercel.app
-- GitHub：https://github.com/zc1018/xdfCompanyTrainor
-- Vercel 项目：`cha-d/xdf-company-trainor`，静态站点，无构建步骤。
-- 手动发布：在项目目录运行 `npx vercel deploy --prod`。
-- Git 自动部署尚未连接：Vercel 账号需要先添加 GitHub Login Connection，再运行 `npx vercel git connect`。目前单独 push 不会自动更新线上页面。
-- `.vercelignore` 排除开发文档、测试脚本和旧素材；原始 PPT 不在仓库内。
-
-## 预览
-
-在上级目录 `/Users/xdf/Documents/XDF/外刊` 启动静态服务：
+## 运行
 
 ```sh
-python3 -m http.server 4199 --bind 127.0.0.1
+npm ci
+npm run dev
 ```
 
-打开 `http://127.0.0.1:4199/enterprise-training-landing/`。
+开发预览：`http://127.0.0.1:4201/`。生产包检查：
 
-## 企业培训规划师
+```sh
+npm run build
+npm run preview
+npm test
+```
 
-在 `sales-config.js` 中配置已经确认的公开咨询渠道，并同步 `index.html` 中 `#sales-channels` 的无脚本回退内容（测试会检查两者一致）：
+测试默认访问 `http://127.0.0.1:4202`，需先启动 preview；可设置 `ENTERPRISE_PREVIEW_URL` 和 `ENTERPRISE_QA_OUTPUT`。测试使用本机 Chrome，不会实际发邮件或拨号。
 
-| 字段 | 支持的值 | 留空时 |
-| --- | --- | --- |
-| `contactName` | 规划师姓名 / 英文名 | 不显示姓名 |
-| `email` | 正式销售邮箱 | 不显示邮件入口 |
-| `phone` | 电话号码，可包含国际区号、空格、括号或连字符 | 不显示电话入口 |
-| `consultationUrl` | HTTPS 在线咨询地址 | 不显示在线咨询入口 |
-| `wechatId` | 正式销售微信号 | 不显示复制微信入口 |
-| `wechatQrImage` | 本地 `assets/` 下的 PNG / JPG / WebP 文件路径；须同时填写微信号 | 不显示二维码 |
+### 本地验收 · 2026-09-17
 
-至少一个有效渠道配置后，页面显示“企业培训规划师”，并移除“联系方式即将公布”。配置邮箱后，生成的需求摘要会多出“打开邮件草稿”入口。它只打开用户的邮件客户端草稿，不代表邮件已发出或已送达。
+构建、TypeScript 和生产依赖安全检查通过。浏览器回归覆盖 320 / 390 / 768 / 1024 / 1440 / 1932px，最后一次运行 70 项通过、1 项外部视频播放检查未通过。指定视频曾成功加载播放，但最后复核时视频与 Google Fonts 均出现 `net::ERR_CONNECTION_CLOSED`；独立连接检查也出现 TLS 连接错误。保留用户指定地址，不将外链可用性标为通过。视频和字体被阻断时的文字、咨询功能，以及关闭 JavaScript 后的联系方式回退均通过。未进行实体手机测试或生产部署。
 
-当前用户确认的企业培训规划师为 **胡婷 Maggie**，邮箱 **huting20@xdf.cn**，电话 **15811383545**。微信和其他在线咨询渠道未确认，继续留空。
+## 技术与设计
 
-### 需求摘要的边界
+- React + TypeScript + Vite，Tailwind CSS v4，Motion，lucide-react，clsx 和 tailwind-merge。
+- 按用户规格使用 Google Fonts 的 Inter / Outfit；中文保留系统无衬线字体回退。
+- 1400px 最大宽度、48px 圆角、600px 高的视频 Hero；使用指定 CloudFront 视频 URL，不添加视频遮罩。
+- 首屏文字和底部悬浮导航使用 Motion 入场；CSS transform 实现双份 Logo 无缝滚动，悬停暂停。
+- 提供整体动态暂停按钮；系统减少动态效果时不播放视频、停止滚动和过渡。背景视频离开视口或切换标签页后暂停。
+- 320px 窄屏将首屏左右留白由 32px 收至 20px，保留 42px 标题字号，避免中文标题折成四行；悬浮导航省略装饰星标以保证可点击区域。
+- 视频 / Google Fonts 加载失败时仍可读、可咨询；未启用 JavaScript 时展示基本产品与联系方式。
 
-- 表单只整理培训目标、企业/团队名、人数和时间，不要求个人联系方式。
-- 信息只存在当前页面内存中，刷新可能丢失；页面已说明这一点。
-- 生成、复制、下载均不发送网络请求，不调用 CRM，也不把信息写入浏览器存储。
-- 无 JavaScript 时，生成按钮默认禁用，避免浏览器默认 GET 提交。课程目录、FAQ 和普通锚点仍然可用。
-- 若日后需要在线提交线索，必须另行实现服务端接收、隐私说明、必要同意、异常恢复与销售端回执，不能把本地摘要状态改成“提交成功”冒充接入。
+## 内容边界
+
+只改 UI/UX 和呈现方式，不扩展业务承诺。课程组合、目标切换、学习方式示意、项目服务、匿名方案示例、FAQ 与本地咨询摘要均沿用原页。
+
+滚动区将示例中的科技公司标识替换为八个已有真实素材：新东方自身品牌、中国银行、IBM、汇丰、中国邮政、上海世博会、金砖国家厦门会晤及杭州亚运会。字幕及辅助文本区分品牌、项目与历史合作机构，不暗示示例科技公司是客户。关系依据见 `assets/brands/SOURCES.md`。
+
+企业培训规划师：胡婷 Maggie，`huting20@xdf.cn`，`15811383545`。主配置在 `src/content.ts`；同时保持 `index.html` 的无脚本联系方式一致。原 `sales-config.js` 仅供旧版页面使用。
+
+表单不保存浏览器草稿，不调用后端或 CRM。生成 / 复制 / 下载都是本地操作；邮件按钮只打开带有摘要的邮件草稿，仍需用户在邮件应用中确认发送。
 
 ## 文件
 
-- `index.html`：页面内容、语义结构、原生 FAQ / 课程展开。
-- `styles.css`：响应式布局、键盘焦点、减少动态效果和打印样式。
-- `app.js`：目标切换、学习方式预览、导航、移动咨询条、配置校验与本地需求摘要。
-- `sales-config.js`：唯一销售渠道配置入口。
-- `scripts/verify.cjs`：自动化浏览器检查；`qa-capture.cjs` 是兼容入口。
-- `scripts/prepare-assets.mjs`：从本次生成图压缩出两个 WebP 尺寸，并生成字体子集；该脚本需要网络，仅资产更新时执行。
-- `DESIGN-REVIEW.md`：评估结论、修改决策、素材边界及验证记录。
-- `assets/brands/SOURCES.md`：正式品牌与合作标识来源、附件依据及展示边界。
+- `src/components/Hero.tsx` / `Marquee.tsx`：视频首屏、导航与滚动标识。
+- `src/components/Solutions.tsx` / `Learning.tsx`：键盘可操作的目标与学习方式选择。
+- `src/components/Contact.tsx`：咨询渠道与摘要工具。
+- `src/content.ts`：确认过的业务内容与素材。
+- `src/index.css`：Tailwind v4 主题、滚动动画、响应式与无障碍规则。
+- `scripts/verify-react.mjs`：构建预览回归与截图。
+- `legacy.html` / `app.js` / `styles.css` / `LEGACY-README.md`：原版静态页面保留用于比较，不作为新版入口。
 
-## 验证
-
-当前 macOS 工作环境使用已安装的 Chrome 和 Codex 附带的 Playwright：
-
-```sh
-/Users/xdf/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node scripts/verify.cjs
-```
-
-可通过 `ENTERPRISE_PREVIEW_URL` 指定预览地址，`ENTERPRISE_QA_OUTPUT` 指定测试输出目录。测试覆盖 320、390、768、1024、1440 px 宽度，以及无脚本、减弱动态、剪贴板失败和有效/无效销售配置。销售配置测试使用隔离拦截，生产配置不会被修改，也不会联系测试渠道。
-
-## 内容与素材
-
-课程形式、项目服务、大型语言培训经历与匿名方案示例，依据用户提供的《2026版-新东方英语企业英语培训介绍.pptx》。页面不承诺培训效果百分比，不引用未经提供的价格、客户证言或成果数据。
-
-首屏使用原生文字概览，说明课程定制、学习方式与项目跟进，不再展示装饰性办公照片。此前的生成图片保留在源码中，但不加载、不部署。英语学习卡片是可切换的功能讲解示意，非实际产品界面、实时评分或可播放音频。
-
-字体使用 Noto Sans SC / Noto Serif SC 的本页自托管子集；许可证保存在 `assets/fonts/*-OFL.txt`。英文教学例句使用系统衬线字体改善标点排印。原有附件抽取素材和旧图片均保留，未做清理删除。
-
-## 上线前仍需确认
-
-1. 邮箱与电话已配置，仍需负责人实际完成一次联系/接收测试。
-2. 确认公开发布域名、部署方式及合作机构标识的对外展示权限。页头、页尾已使用新东方官网标识。
-3. 如增加线索系统，完成真实收件验证与隐私合规检查。
-4. 页面已部署至上方 Vercel 生产网址；真实销售接收与企业转化率仍未验证。
+当前线上主站仍为 `https://xdf-company-trainor.vercel.app/`，本分支尚未发布生产。若需部署本分支，请先使用 Vercel Preview 评审，确认后再合并及生产发布。
