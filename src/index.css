@@ -27,6 +27,8 @@ details[open] summary > svg { transform: rotate(45deg); }
 .nav-standard { display: flex; align-items: center; justify-content: center; min-height: 44px; padding-inline: 18px; white-space: nowrap; font-size: 12px; font-weight: 600; color: #64748b; transition: color .2s; }
 .nav-standard:hover { color: #0a1b33; }
 .nav-contact { min-height: 44px; white-space: nowrap; }
+.hero-media video { position: relative; }
+.hero-media video[data-failed='true'] { visibility: hidden; }
 .marquee-mask { overflow: hidden; padding-block: 2px; }
 .marquee-mask:has(.marquee-track[data-paused='true']) { overflow-x: auto; scrollbar-width: thin; }
 .marquee-track { display: flex; width: max-content; animation: marquee 42s linear infinite; }
@@ -48,7 +50,7 @@ details[open] summary > svg { transform: rotate(45deg); }
 .skip-link { position: fixed; top: -80px; left: 20px; z-index: 50; padding: 12px 20px; border-radius: 8px; background: #0a152d; color: white; }
 .skip-link:focus { top: 12px; }
 @media (max-width: 640px) {
-  #home video { object-position: left center; }
+  #home video, #home .hero-poster { object-position: left center; }
   .site-shell { width: calc(100% - 24px); }
   .content-shell { padding-inline: 12px; }
   .section-shell { padding-block: 56px; }

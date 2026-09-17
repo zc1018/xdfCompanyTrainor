@@ -6,9 +6,12 @@ import boc from '../assets/brands/bank-of-china.png';
 import post from '../assets/brands/china-post.png';
 import ibm from '../assets/brands/ibm.png';
 import hsbc from '../assets/brands/hsbc.svg';
+import heroVideo from '../assets/media/enterprise-hero.mp4';
+import heroPoster from '../assets/media/enterprise-hero-poster.jpg';
 
 export { newOriental };
-export const VIDEO_URL = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260505_101331_74f9b798-3f00-4e86-8a01-377aa16ffeaa.mp4';
+// Same user-supplied video, now served with the site. Provenance: assets/media/SOURCES.md.
+export { heroVideo as VIDEO_URL, heroPoster as VIDEO_POSTER };
 export const planner = { name: '胡婷 Maggie', title: '企业培训规划师', email: 'huting20@xdf.cn', phone: '15811383545' } as const;
 
 export interface Brand { src: string; alt: string; relationship: string; gradient: { from: string; to: string }; imageClass?: string }

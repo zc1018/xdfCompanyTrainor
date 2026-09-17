@@ -2,10 +2,10 @@ import { chromium } from '@playwright/test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { createHash } from 'node:crypto';
 
 const base = process.env.ENTERPRISE_PREVIEW_URL || 'http://127.0.0.1:4202';
 const output = process.env.ENTERPRISE_QA_OUTPUT || '/tmp/xdf-motion-home-20260917';
-const videoURL = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260505_101331_74f9b798-3f00-4e86-8a01-377aa16ffeaa.mp4';
 const checks = [];
 const check = (name, pass) => { checks.push({ name, pass: !!pass }); };
 async function open(page) {
@@ -14,14 +14,18 @@ async function open(page) {
   await page.waitForFunction(() => [...document.images].every(image => image.complete && image.naturalWidth));
   // Third-party fonts/media must not make local interaction checks wait on network-idle.
   await page.evaluate(() => Promise.race([document.fonts.ready, new Promise(resolve => setTimeout(resolve, 2500))]));
+  await page.waitForFunction(() => getComputedStyle(document.querySelector('#home .relative.z-20 > div')).opacity === '1' && getComputedStyle(document.querySelector('#home nav')).opacity === '1');
 }
 await fs.mkdir(output, { recursive: true });
 const browser = await chromium.launch({ channel: 'chrome', headless: true });
 try {
   for (const width of [320, 390, 768, 1024, 1440, 1932]) {
     const context = await browser.newContext({ viewport: { width, height: width === 1932 ? 1354 : 1000 }, reducedMotion: 'reduce' });
+    await context.route('https://fonts.googleapis.com/**', route => route.abort());
     const page = await context.newPage();
     const errors = [];
+    let videoRequests = 0;
+    page.on('request', request => { if (request.url().endsWith('.mp4')) videoRequests++; });
     page.on('pageerror', error => errors.push(error.message));
     await open(page);
     const state = await page.evaluate(() => {
@@ -44,6 +48,7 @@ try {
     check(`${width}: assets load`, state.broken.length === 0);
     check(`${width}: headings, IDs and anchors valid`, state.headingCount === 1 && !state.anchors.length && !state.duplicateIds.length);
     check(`${width}: reduced motion stops video and marquee`, state.videoPaused && state.marqueeAnimation === 'none');
+    check(`${width}: reduced motion retains loaded cover without fetching video`, videoRequests === 0 && await page.locator('.hero-poster').evaluate(image => image.complete && image.naturalWidth > 0 && getComputedStyle(image).visibility === 'visible'));
     check(`${width}: eight verified marks rendered twice`, state.logoCount === 8 && state.logoCopies === 2);
     check(`${width}: no runtime exceptions`, errors.length === 0);
     await page.screenshot({ path: path.join(output, `${width}-hero.png`) });
@@ -55,12 +60,16 @@ try {
     await context.close();
   }
   const context = await browser.newContext({ viewport: { width: 1440, height: 1000 }, permissions: ['clipboard-read', 'clipboard-write'] });
+  // Prove the hero works without any external origin, including the former CDN.
+  await context.route('**/*', route => new URL(route.request().url()).origin === new URL(base).origin ? route.continue() : route.abort());
   const page = await context.newPage();
   await open(page);
-  await page.waitForFunction(() => document.querySelector('video')?.readyState >= 2, undefined, { timeout: 25000 }).catch(() => {});
-  const video = await page.locator('video').evaluate(v => ({ src: v.src, ready: v.readyState, playing: !v.paused, loop: v.loop, muted: v.muted, playsInline: v.playsInline, autoplay: v.autoplay, onlyLayer: v.parentElement.children.length === 1 }));
-  check('Supplied video source, autoplay flags and no overlay', video.src === videoURL && video.loop && video.muted && video.playsInline && video.autoplay && video.onlyLayer);
-  check('Video successfully loads and plays', video.ready >= 2 && video.playing);
+  await page.waitForFunction(() => { const v = document.querySelector('video'); return v?.readyState >= 2 && v.currentTime > 0 && !v.paused; }, undefined, { timeout: 10000 });
+  const video = await page.locator('video').evaluate(v => ({ src: v.src, poster: v.poster, ready: v.readyState, playing: !v.paused, time: v.currentTime, loop: v.loop, muted: v.muted, playsInline: v.playsInline, autoplay: v.autoplay, onlyMedia: [...v.parentElement.children].map(el => el.tagName).join(',') === 'IMG,VIDEO' }));
+  check('Same-origin video and cover, autoplay flags and no overlay', new URL(video.src).origin === new URL(base).origin && new URL(video.poster).origin === new URL(base).origin && video.loop && video.muted && video.playsInline && video.autoplay && video.onlyMedia);
+  check('Video loads and plays with every external origin blocked', video.ready >= 2 && video.playing && video.time > 0);
+  const response = await page.request.get(video.src);
+  check('Served video preserves original source bytes', response.ok() && createHash('md5').update(await response.body()).digest('hex') === '671571ff2d7eac1356e6b4b839e24fc0');
   await page.screenshot({ path: path.join(output, '1440-video-hero.png') });
   await page.setViewportSize({ width: 390, height: 1000 });
   await page.screenshot({ path: path.join(output, '390-video-hero.png') });
@@ -118,10 +127,28 @@ try {
   const fallback = await browser.newContext();
   await fallback.route('**/*.mp4', route => route.abort());
   await fallback.route('https://fonts.googleapis.com/**', route => route.abort());
-  const fallbackPage = await fallback.newPage(); await fallbackPage.goto(base);
+  const fallbackPage = await fallback.newPage(); await open(fallbackPage);
   check('Blocked video and fonts leave heading and CTA usable', await fallbackPage.getByRole('heading', { level: 1 }).isVisible() && await fallbackPage.getByRole('button', { name: '聊聊企业培训需求' }).isEnabled());
+  await fallbackPage.waitForFunction(() => document.querySelector('video')?.dataset.failed === 'true');
+  await fallbackPage.waitForFunction(() => document.querySelector('.hero-poster')?.naturalWidth > 0);
+  check('Failed video reveals original cover instead of blank background', await fallbackPage.locator('video').evaluate(v => getComputedStyle(v).visibility === 'hidden') && await fallbackPage.locator('.hero-poster').isVisible());
+  await fallbackPage.setViewportSize({ width: 1440, height: 1000 });
+  await fallbackPage.screenshot({ path: path.join(output, '1440-video-fallback.png') });
+  await fallbackPage.setViewportSize({ width: 390, height: 1000 });
+  await fallbackPage.screenshot({ path: path.join(output, '390-video-fallback.png') });
   await fallback.close();
+  const slow = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
+  let releaseVideo;
+  const videoGate = new Promise(resolve => { releaseVideo = resolve; });
+  await slow.route('**/*.mp4', async route => { await videoGate; await route.abort(); });
+  await slow.route('https://fonts.googleapis.com/**', route => route.abort());
+  const slowPage = await slow.newPage(); await open(slowPage);
+  check('Slow-loading video displays a loaded first-frame cover', await slowPage.locator('video').evaluate(v => v.readyState === 0 && !!v.poster) && await slowPage.locator('.hero-poster').evaluate(img => img.complete && img.naturalWidth > 0));
+  await slowPage.screenshot({ path: path.join(output, '1440-video-loading.png') });
+  releaseVideo();
+  await slow.close();
   const nojs = await browser.newContext({ javaScriptEnabled: false });
+  await nojs.route('https://fonts.googleapis.com/**', route => route.abort());
   const nojsPage = await nojs.newPage(); await nojsPage.goto(base);
   check('No-JS fallback retains confirmed contact channels', await nojsPage.locator('a[href="mailto:huting20@xdf.cn"]').isVisible() && await nojsPage.locator('a[href="tel:15811383545"]').isVisible());
   await nojs.close();

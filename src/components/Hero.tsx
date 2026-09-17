@@ -1,12 +1,13 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowUpRight, ChevronRight, Pause, Play } from 'lucide-react';
-import { VIDEO_URL } from '../content';
+import { VIDEO_URL, VIDEO_POSTER } from '../content';
 import { goToContact } from '../lib';
 
 interface Props { paused: boolean; reduceMotion: boolean; onToggle: () => void }
 export default function Hero({ paused, reduceMotion, onToggle }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoFailed, setVideoFailed] = useState(false);
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -23,8 +24,9 @@ export default function Hero({ paused, reduceMotion, onToggle }: Props) {
   }, [paused]);
 
   return <section id="home" aria-labelledby="hero-title" className="relative w-full max-w-[1400px] mx-auto rounded-[48px] bg-white border border-slate-200/50 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.03)] overflow-hidden h-[600px] flex flex-col">
-    <div aria-hidden="true" className="absolute inset-0 pointer-events-none z-0 overflow-hidden select-none">
-      <video ref={videoRef} src={VIDEO_URL} autoPlay={!reduceMotion} loop muted playsInline preload={reduceMotion ? 'none' : 'metadata'} className="w-full h-full object-cover scale-105 transition-transform duration-1000" />
+    <div aria-hidden="true" className="hero-media absolute inset-0 pointer-events-none z-0 overflow-hidden select-none">
+      <img src={VIDEO_POSTER} alt="" width="1920" height="1080" fetchPriority="high" className="hero-poster absolute inset-0 w-full h-full object-cover scale-105" />
+      <video ref={videoRef} src={VIDEO_URL} poster={VIDEO_POSTER} data-failed={videoFailed} onError={() => setVideoFailed(true)} autoPlay={!reduceMotion} loop muted playsInline preload={reduceMotion ? 'none' : 'metadata'} className="w-full h-full object-cover scale-105 transition-transform duration-1000" />
     </div>
     <div className="relative z-20 flex-1 px-8 md:px-16 pt-12 md:pt-16 flex flex-col items-start">
       <motion.div initial={reduceMotion ? false : { opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }} className="max-w-[580px]">

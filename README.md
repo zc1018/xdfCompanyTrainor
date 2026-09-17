@@ -21,17 +21,17 @@ npm test
 
 ### 本地验收 · 2026-09-17
 
-构建、TypeScript 和生产依赖安全检查通过。浏览器回归覆盖 320 / 390 / 768 / 1024 / 1440 / 1932px，最后一次运行 70 项通过、1 项外部视频播放检查未通过。指定视频曾成功加载播放，但最后复核时视频与 Google Fonts 均出现 `net::ERR_CONNECTION_CLOSED`；独立连接检查也出现 TLS 连接错误。保留用户指定地址，不将外链可用性标为通过。视频和字体被阻断时的文字、咨询功能，以及关闭 JavaScript 后的联系方式回退均通过。未进行实体手机测试或生产部署。
+构建、TypeScript 和生产依赖安全检查通过。浏览器回归覆盖 320 / 390 / 768 / 1024 / 1440 / 1932px，80 项全部通过。包含屏蔽全部外部资源后的站内视频播放、服务文件与原视频字节校验、慢速加载 / 视频失败时的首帧封面、减少动态效果时不请求视频且保留封面，以及咨询流程和无脚本联系方式。原 CloudFront 链接曾出现连接失败，现已获用户确认改为站内媒体；外链可用性不再影响首屏视频。未进行实体手机测试或生产部署。
 
 ## 技术与设计
 
 - React + TypeScript + Vite，Tailwind CSS v4，Motion，lucide-react，clsx 和 tailwind-merge。
 - 按用户规格使用 Google Fonts 的 Inter / Outfit；中文保留系统无衬线字体回退。
-- 1400px 最大宽度、48px 圆角、600px 高的视频 Hero；使用指定 CloudFront 视频 URL，不添加视频遮罩。
+- 1400px 最大宽度、48px 圆角、600px 高的视频 Hero；使用用户指定的原视频，不添加视频遮罩。经用户确认，原视频按字节完整保存在站内，不再依赖 CloudFront 外链。
 - 首屏文字和底部悬浮导航使用 Motion 入场；CSS transform 实现双份 Logo 无缝滚动，悬停暂停。
-- 提供整体动态暂停按钮；系统减少动态效果时不播放视频、停止滚动和过渡。背景视频离开视口或切换标签页后暂停。
+- 提供整体动态暂停按钮；系统减少动态效果时显示首帧封面、不下载或播放视频，并停止滚动和过渡。背景视频离开视口或切换标签页后暂停。
 - 320px 窄屏将首屏左右留白由 32px 收至 20px，保留 42px 标题字号，避免中文标题折成四行；悬浮导航省略装饰星标以保证可点击区域。
-- 视频 / Google Fonts 加载失败时仍可读、可咨询；未启用 JavaScript 时展示基本产品与联系方式。
+- 视频慢速加载或失败时展示站内首帧封面；Google Fonts 加载失败时使用系统字体，仍可读、可咨询。未启用 JavaScript 时展示基本产品与联系方式。
 
 ## 内容边界
 
@@ -49,6 +49,7 @@ npm test
 - `src/components/Solutions.tsx` / `Learning.tsx`：键盘可操作的目标与学习方式选择。
 - `src/components/Contact.tsx`：咨询渠道与摘要工具。
 - `src/content.ts`：确认过的业务内容与素材。
+- `assets/media/`：用户指定的原视频与首帧封面；`SOURCES.md` 记录原始来源、文件校验和与提取方法。
 - `src/index.css`：Tailwind v4 主题、滚动动画、响应式与无障碍规则。
 - `scripts/verify-react.mjs`：构建预览回归与截图。
 - `legacy.html` / `app.js` / `styles.css` / `LEGACY-README.md`：原版静态页面保留用于比较，不作为新版入口。
