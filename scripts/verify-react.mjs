@@ -19,7 +19,7 @@ async function open(page) {
 await fs.mkdir(output, { recursive: true });
 const browser = await chromium.launch({ channel: 'chrome', headless: true });
 try {
-  for (const width of [320, 390, 768, 1024, 1440, 1932]) {
+  for (const width of [320, 390, 640, 641, 768, 1024, 1440, 1932]) {
     const context = await browser.newContext({ viewport: { width, height: width === 1932 ? 1354 : 1000 }, reducedMotion: 'reduce' });
     await context.route('https://fonts.googleapis.com/**', route => route.abort());
     const page = await context.newPage();
@@ -49,6 +49,7 @@ try {
     check(`${width}: headings, IDs and anchors valid`, state.headingCount === 1 && !state.anchors.length && !state.duplicateIds.length);
     check(`${width}: reduced motion stops video and marquee`, state.videoPaused && state.marqueeAnimation === 'none');
     check(`${width}: reduced motion retains loaded cover without fetching video`, videoRequests === 0 && await page.locator('.hero-poster').evaluate(image => image.complete && image.naturalWidth > 0 && getComputedStyle(image).visibility === 'visible'));
+    check(`${width}: complete H3 composition is retained without cropping`, await page.locator('.hero-poster').evaluate(image => getComputedStyle(image).objectFit === 'contain' && getComputedStyle(image).scale === '1'));
     check(`${width}: eight verified marks rendered twice`, state.logoCount === 8 && state.logoCopies === 2);
     check(`${width}: no runtime exceptions`, errors.length === 0);
     await page.screenshot({ path: path.join(output, `${width}-hero.png`) });
@@ -69,7 +70,8 @@ try {
   check('Same-origin video and cover, autoplay flags and no overlay', new URL(video.src).origin === new URL(base).origin && new URL(video.poster).origin === new URL(base).origin && video.loop && video.muted && video.playsInline && video.autoplay && video.onlyMedia);
   check('Video loads and plays with every external origin blocked', video.ready >= 2 && video.playing && video.time > 0);
   const response = await page.request.get(video.src);
-  check('Served video preserves original source bytes', response.ok() && createHash('md5').update(await response.body()).digest('hex') === '671571ff2d7eac1356e6b4b839e24fc0');
+  check('Served video matches the reviewed H3 web asset', response.ok() && createHash('sha256').update(await response.body()).digest('hex') === 'e67a039b9cbf25519851141baef0702b24c058f162bf80b2616720fe8a1e900f');
+  check('H3 video retains 1080p and its full loop duration', await page.locator('video').evaluate(v => v.videoWidth === 1920 && v.videoHeight === 1080 && Math.abs(v.duration - 12.25) < 0.05));
   await page.screenshot({ path: path.join(output, '1440-video-hero.png') });
   await page.setViewportSize({ width: 390, height: 1000 });
   await page.screenshot({ path: path.join(output, '390-video-hero.png') });

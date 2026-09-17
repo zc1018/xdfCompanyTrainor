@@ -1,5 +1,42 @@
 # Hero media
 
+## Active: workplace English learning scene
+
+The user approved “learn → practice → apply” and requested one Atlas Cloud
+MiniMax H3 video on 2026-09-17. This is an AI-generated learning illustration,
+not footage of a real client, class, or product interface.
+
+- First/end frame: built-in image2, actual 1672×941 PNG. All visible English text
+  was generated in the image/video, not composited afterward.
+- Provider/model: Atlas Cloud `minimax/h3/image-to-video`, standard 2K,
+  12-second request, adaptive aspect ratio, prompt expansion disabled.
+- Exactly one task: `827489a725524bcb89cf3ddc1ff45a6c`, completed.
+- Quoted cost: USD 1.56. This is the saved API quote, not a billing statement.
+- Provider output: https://atlas-media.oss-us-west-1.aliyuncs.com/videos/442645821358204.mp4
+- Raw output: 2560×1440, 24 fps, 12.25 seconds, 1,526,505 bytes, H.264 + AAC.
+- Raw SHA-256: `290dc4c381a3d288354799f3e5439cdcd599dd9a572c97609d9863acc4b34d71`.
+- Web copy: `enterprise-learning-h3.mp4`, 1920×1080, 24 fps, full 12.25 seconds,
+  H.264/yuv420p, audio removed, fast-start MP4, 1,187,413 bytes.
+- Web SHA-256: `e67a039b9cbf25519851141baef0702b24c058f162bf80b2616720fe8a1e900f`.
+- Poster: `enterprise-learning-h3-poster.jpg`, first decoded web frame,
+  1920×1080, JPEG quality 2, 94,263 bytes.
+- Poster SHA-256: `0a8855c20ac81af59743939fe6f70d0f829a7ec18cc6e52f68faafda016629c0`.
+- Production prompts, source image, raw video, and non-secret receipts:
+  `../../production/enterprise-h3-20260917/`.
+
+The web version is a resize/encode only: no extra text, overlays, cuts, time
+reversal, or paid regeneration. The opening and last frame SSIM is 0.996038;
+sampled visual inspection shows the scene returning to its starting state.
+This measurement does not substitute for the user's subjective playback review.
+
+Vite imports the video and poster into content-hashed, same-origin assets. The
+poster remains behind the video for loading, errors, and reduced motion. A
+contained frame prevents the new subject from being cropped; mobile spacing
+places it below the headline/CTA and above the floating navigation. No external
+video host is contacted by the webpage.
+
+## Preserved: original user-supplied video
+
 The user supplied this video for the new enterprise homepage and approved serving
 the same video with the site plus a first-frame fallback on 2026-09-17.
 
@@ -12,8 +49,5 @@ the same video with the site plus a first-frame fallback on 2026-09-17.
 - Poster: `enterprise-hero-poster.jpg`, first decoded frame extracted with FFmpeg,
   original dimensions, JPEG quality 2. No generated imagery, added text, or overlays.
 
-Both assets are imported by Vite and included in the deployment with content-hashed
-filenames. The browser no longer requests the CloudFront source. The poster sits
-behind the video and is also its native `poster`: loading, media errors, or reduced
-motion cannot leave the hero without its original visual. Mobile cropping remains
-the same as the video layout.
+These original files are retained for comparison and rollback, but are no longer
+imported into the current feature-branch webpage.

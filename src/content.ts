@@ -6,11 +6,11 @@ import boc from '../assets/brands/bank-of-china.png';
 import post from '../assets/brands/china-post.png';
 import ibm from '../assets/brands/ibm.png';
 import hsbc from '../assets/brands/hsbc.svg';
-import heroVideo from '../assets/media/enterprise-hero.mp4';
-import heroPoster from '../assets/media/enterprise-hero-poster.jpg';
+import heroVideo from '../assets/media/enterprise-learning-h3.mp4';
+import heroPoster from '../assets/media/enterprise-learning-h3-poster.jpg';
 
 export { newOriental };
-// Same user-supplied video, now served with the site. Provenance: assets/media/SOURCES.md.
+// Bespoke image2 + MiniMax H3 learning scene, served locally. Provenance: assets/media/SOURCES.md.
 export { heroVideo as VIDEO_URL, heroPoster as VIDEO_POSTER };
 export const planner = { name: '胡婷 Maggie', title: '企业培训规划师', email: 'huting20@xdf.cn', phone: '15811383545' } as const;
 

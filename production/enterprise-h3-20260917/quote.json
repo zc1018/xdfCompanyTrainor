@@ -1,0 +1,9 @@
+{
+  "code": 200,
+  "msg": "succeed",
+  "data": {
+    "discount": "100",
+    "origin_price": "1.56",
+    "price": "1.56"
+  }
+}

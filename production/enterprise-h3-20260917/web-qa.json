@@ -1,0 +1,430 @@
+[
+  {
+    "name": "320: no horizontal overflow",
+    "pass": true
+  },
+  {
+    "name": "320: exact 600px hero",
+    "pass": true
+  },
+  {
+    "name": "320: navigation and text fit without overlap",
+    "pass": true
+  },
+  {
+    "name": "320: assets load",
+    "pass": true
+  },
+  {
+    "name": "320: headings, IDs and anchors valid",
+    "pass": true
+  },
+  {
+    "name": "320: reduced motion stops video and marquee",
+    "pass": true
+  },
+  {
+    "name": "320: reduced motion retains loaded cover without fetching video",
+    "pass": true
+  },
+  {
+    "name": "320: complete H3 composition is retained without cropping",
+    "pass": true
+  },
+  {
+    "name": "320: eight verified marks rendered twice",
+    "pass": true
+  },
+  {
+    "name": "320: no runtime exceptions",
+    "pass": true
+  },
+  {
+    "name": "390: no horizontal overflow",
+    "pass": true
+  },
+  {
+    "name": "390: exact 600px hero",
+    "pass": true
+  },
+  {
+    "name": "390: navigation and text fit without overlap",
+    "pass": true
+  },
+  {
+    "name": "390: assets load",
+    "pass": true
+  },
+  {
+    "name": "390: headings, IDs and anchors valid",
+    "pass": true
+  },
+  {
+    "name": "390: reduced motion stops video and marquee",
+    "pass": true
+  },
+  {
+    "name": "390: reduced motion retains loaded cover without fetching video",
+    "pass": true
+  },
+  {
+    "name": "390: complete H3 composition is retained without cropping",
+    "pass": true
+  },
+  {
+    "name": "390: eight verified marks rendered twice",
+    "pass": true
+  },
+  {
+    "name": "390: no runtime exceptions",
+    "pass": true
+  },
+  {
+    "name": "640: no horizontal overflow",
+    "pass": true
+  },
+  {
+    "name": "640: exact 600px hero",
+    "pass": true
+  },
+  {
+    "name": "640: navigation and text fit without overlap",
+    "pass": true
+  },
+  {
+    "name": "640: assets load",
+    "pass": true
+  },
+  {
+    "name": "640: headings, IDs and anchors valid",
+    "pass": true
+  },
+  {
+    "name": "640: reduced motion stops video and marquee",
+    "pass": true
+  },
+  {
+    "name": "640: reduced motion retains loaded cover without fetching video",
+    "pass": true
+  },
+  {
+    "name": "640: complete H3 composition is retained without cropping",
+    "pass": true
+  },
+  {
+    "name": "640: eight verified marks rendered twice",
+    "pass": true
+  },
+  {
+    "name": "640: no runtime exceptions",
+    "pass": true
+  },
+  {
+    "name": "641: no horizontal overflow",
+    "pass": true
+  },
+  {
+    "name": "641: exact 600px hero",
+    "pass": true
+  },
+  {
+    "name": "641: navigation and text fit without overlap",
+    "pass": true
+  },
+  {
+    "name": "641: assets load",
+    "pass": true
+  },
+  {
+    "name": "641: headings, IDs and anchors valid",
+    "pass": true
+  },
+  {
+    "name": "641: reduced motion stops video and marquee",
+    "pass": true
+  },
+  {
+    "name": "641: reduced motion retains loaded cover without fetching video",
+    "pass": true
+  },
+  {
+    "name": "641: complete H3 composition is retained without cropping",
+    "pass": true
+  },
+  {
+    "name": "641: eight verified marks rendered twice",
+    "pass": true
+  },
+  {
+    "name": "641: no runtime exceptions",
+    "pass": true
+  },
+  {
+    "name": "768: no horizontal overflow",
+    "pass": true
+  },
+  {
+    "name": "768: exact 600px hero",
+    "pass": true
+  },
+  {
+    "name": "768: navigation and text fit without overlap",
+    "pass": true
+  },
+  {
+    "name": "768: assets load",
+    "pass": true
+  },
+  {
+    "name": "768: headings, IDs and anchors valid",
+    "pass": true
+  },
+  {
+    "name": "768: reduced motion stops video and marquee",
+    "pass": true
+  },
+  {
+    "name": "768: reduced motion retains loaded cover without fetching video",
+    "pass": true
+  },
+  {
+    "name": "768: complete H3 composition is retained without cropping",
+    "pass": true
+  },
+  {
+    "name": "768: eight verified marks rendered twice",
+    "pass": true
+  },
+  {
+    "name": "768: no runtime exceptions",
+    "pass": true
+  },
+  {
+    "name": "1024: no horizontal overflow",
+    "pass": true
+  },
+  {
+    "name": "1024: exact 600px hero",
+    "pass": true
+  },
+  {
+    "name": "1024: navigation and text fit without overlap",
+    "pass": true
+  },
+  {
+    "name": "1024: assets load",
+    "pass": true
+  },
+  {
+    "name": "1024: headings, IDs and anchors valid",
+    "pass": true
+  },
+  {
+    "name": "1024: reduced motion stops video and marquee",
+    "pass": true
+  },
+  {
+    "name": "1024: reduced motion retains loaded cover without fetching video",
+    "pass": true
+  },
+  {
+    "name": "1024: complete H3 composition is retained without cropping",
+    "pass": true
+  },
+  {
+    "name": "1024: eight verified marks rendered twice",
+    "pass": true
+  },
+  {
+    "name": "1024: no runtime exceptions",
+    "pass": true
+  },
+  {
+    "name": "1440: no horizontal overflow",
+    "pass": true
+  },
+  {
+    "name": "1440: exact 600px hero",
+    "pass": true
+  },
+  {
+    "name": "1440: navigation and text fit without overlap",
+    "pass": true
+  },
+  {
+    "name": "1440: assets load",
+    "pass": true
+  },
+  {
+    "name": "1440: headings, IDs and anchors valid",
+    "pass": true
+  },
+  {
+    "name": "1440: reduced motion stops video and marquee",
+    "pass": true
+  },
+  {
+    "name": "1440: reduced motion retains loaded cover without fetching video",
+    "pass": true
+  },
+  {
+    "name": "1440: complete H3 composition is retained without cropping",
+    "pass": true
+  },
+  {
+    "name": "1440: eight verified marks rendered twice",
+    "pass": true
+  },
+  {
+    "name": "1440: no runtime exceptions",
+    "pass": true
+  },
+  {
+    "name": "1932: no horizontal overflow",
+    "pass": true
+  },
+  {
+    "name": "1932: exact 600px hero",
+    "pass": true
+  },
+  {
+    "name": "1932: navigation and text fit without overlap",
+    "pass": true
+  },
+  {
+    "name": "1932: assets load",
+    "pass": true
+  },
+  {
+    "name": "1932: headings, IDs and anchors valid",
+    "pass": true
+  },
+  {
+    "name": "1932: reduced motion stops video and marquee",
+    "pass": true
+  },
+  {
+    "name": "1932: reduced motion retains loaded cover without fetching video",
+    "pass": true
+  },
+  {
+    "name": "1932: complete H3 composition is retained without cropping",
+    "pass": true
+  },
+  {
+    "name": "1932: eight verified marks rendered twice",
+    "pass": true
+  },
+  {
+    "name": "1932: no runtime exceptions",
+    "pass": true
+  },
+  {
+    "name": "Same-origin video and cover, autoplay flags and no overlay",
+    "pass": true
+  },
+  {
+    "name": "Video loads and plays with every external origin blocked",
+    "pass": true
+  },
+  {
+    "name": "Served video matches the reviewed H3 web asset",
+    "pass": true
+  },
+  {
+    "name": "H3 video retains 1080p and its full loop duration",
+    "pass": true
+  },
+  {
+    "name": "Pause control stops video and marquee",
+    "pass": true
+  },
+  {
+    "name": "Marquee pauses on hover",
+    "pass": true
+  },
+  {
+    "name": "Hovered logo reveals gradient and white mark",
+    "pass": true
+  },
+  {
+    "name": "Hero CTA targets planner section and moves focus",
+    "pass": true
+  },
+  {
+    "name": "Required goal validation focuses input",
+    "pass": true
+  },
+  {
+    "name": "Scenario keyboard updates goal and panel",
+    "pass": true
+  },
+  {
+    "name": "Scenario CTA carries consultation context",
+    "pass": true
+  },
+  {
+    "name": "Learning preview supports keyboard tabs",
+    "pass": true
+  },
+  {
+    "name": "All four course formats expand",
+    "pass": true
+  },
+  {
+    "name": "FAQ opens",
+    "pass": true
+  },
+  {
+    "name": "Summary is complete plain text without transmission",
+    "pass": true
+  },
+  {
+    "name": "Summary reports unsent and receives focus",
+    "pass": true
+  },
+  {
+    "name": "Email recipient and encoded draft are correct",
+    "pass": true
+  },
+  {
+    "name": "Confirmed planner phone is retained",
+    "pass": true
+  },
+  {
+    "name": "Clipboard contains exact summary",
+    "pass": true
+  },
+  {
+    "name": "Clipboard denial selects copyable text",
+    "pass": true
+  },
+  {
+    "name": "UTF-8 download preserves summary",
+    "pass": true
+  },
+  {
+    "name": "Editing invalidates old summary",
+    "pass": true
+  },
+  {
+    "name": "No browser storage or hidden lead submission",
+    "pass": true
+  },
+  {
+    "name": "Blocked video and fonts leave heading and CTA usable",
+    "pass": true
+  },
+  {
+    "name": "Failed video reveals original cover instead of blank background",
+    "pass": true
+  },
+  {
+    "name": "Slow-loading video displays a loaded first-frame cover",
+    "pass": true
+  },
+  {
+    "name": "No-JS fallback retains confirmed contact channels",
+    "pass": true
+  }
+]

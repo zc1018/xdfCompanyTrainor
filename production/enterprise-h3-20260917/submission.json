@@ -1,0 +1,20 @@
+{
+  "code": 200,
+  "message": "",
+  "data": {
+    "id": "827489a725524bcb89cf3ddc1ff45a6c",
+    "model": "minimax/h3/image-to-video",
+    "outputs": null,
+    "urls": {
+      "get": "https://api.atlascloud.ai/api/v1/model/prediction/827489a725524bcb89cf3ddc1ff45a6c"
+    },
+    "has_nsfw_contents": null,
+    "status": "processing",
+    "created_at": "0001-01-01T00:00:00Z",
+    "error": "",
+    "executionTime": 0,
+    "timings": {
+      "inference": 0
+    }
+  }
+}
