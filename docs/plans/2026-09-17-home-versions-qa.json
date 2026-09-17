@@ -1,0 +1,134 @@
+[
+  {
+    "name": "320: independent static entry",
+    "pass": true
+  },
+  {
+    "name": "320: static version mounts no video, canvas, motion control or spacer",
+    "pass": true
+  },
+  {
+    "name": "320: static content is immediately visible without scroll animation",
+    "pass": true
+  },
+  {
+    "name": "320: no horizontal overflow",
+    "pass": true
+  },
+  {
+    "name": "320: native chapter link stays on static version without smooth scrolling",
+    "pass": true
+  },
+  {
+    "name": "320: static inquiry keeps the chosen goal and stable URL",
+    "pass": true
+  },
+  {
+    "name": "320: static local inquiry remains functional",
+    "pass": true
+  },
+  {
+    "name": "320: static footer returns to its own home",
+    "pass": true
+  },
+  {
+    "name": "320: static direct contact link works",
+    "pass": true
+  },
+  {
+    "name": "320: no video requests or runtime errors throughout static browsing",
+    "pass": true
+  },
+  {
+    "name": "390: independent static entry",
+    "pass": true
+  },
+  {
+    "name": "390: static version mounts no video, canvas, motion control or spacer",
+    "pass": true
+  },
+  {
+    "name": "390: static content is immediately visible without scroll animation",
+    "pass": true
+  },
+  {
+    "name": "390: no horizontal overflow",
+    "pass": true
+  },
+  {
+    "name": "390: native chapter link stays on static version without smooth scrolling",
+    "pass": true
+  },
+  {
+    "name": "390: static inquiry keeps the chosen goal and stable URL",
+    "pass": true
+  },
+  {
+    "name": "390: static local inquiry remains functional",
+    "pass": true
+  },
+  {
+    "name": "390: static footer returns to its own home",
+    "pass": true
+  },
+  {
+    "name": "390: static direct contact link works",
+    "pass": true
+  },
+  {
+    "name": "390: no video requests or runtime errors throughout static browsing",
+    "pass": true
+  },
+  {
+    "name": "1440: independent static entry",
+    "pass": true
+  },
+  {
+    "name": "1440: static version mounts no video, canvas, motion control or spacer",
+    "pass": true
+  },
+  {
+    "name": "1440: static content is immediately visible without scroll animation",
+    "pass": true
+  },
+  {
+    "name": "1440: no horizontal overflow",
+    "pass": true
+  },
+  {
+    "name": "1440: native chapter link stays on static version without smooth scrolling",
+    "pass": true
+  },
+  {
+    "name": "1440: static inquiry keeps the chosen goal and stable URL",
+    "pass": true
+  },
+  {
+    "name": "1440: static local inquiry remains functional",
+    "pass": true
+  },
+  {
+    "name": "1440: static footer returns to its own home",
+    "pass": true
+  },
+  {
+    "name": "1440: static direct contact link works",
+    "pass": true
+  },
+  {
+    "name": "1440: no video requests or runtime errors throughout static browsing",
+    "pass": true
+  },
+  {
+    "name": "Both saved versions share all enterprise content and contact details",
+    "pass": true
+  },
+  {
+    "name": "Named scroll entry retains the original video experience",
+    "pass": true
+  },
+  {
+    "name": "Named scroll entry continues to scrub the video",
+    "pass": true
+  }
+]

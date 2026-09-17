@@ -1,0 +1,334 @@
+[
+  {
+    "name": "320: readable responsive shell without horizontal overflow",
+    "pass": true
+  },
+  {
+    "name": "320: full 80vh scroll interval retained",
+    "pass": true
+  },
+  {
+    "name": "320: reduced motion retains poster without fetching video",
+    "pass": true
+  },
+  {
+    "name": "320: second-screen CTA scrolls to the inline solutions chapter",
+    "pass": true
+  },
+  {
+    "name": "320: every chapter is visible in continuous document order",
+    "pass": true
+  },
+  {
+    "name": "320: no modal, hidden chapter, nested scroller, or body scroll lock",
+    "pass": true
+  },
+  {
+    "name": "320: planner contact channels retained",
+    "pass": true
+  },
+  {
+    "name": "320: inquiry anchor remains clear of the fixed header",
+    "pass": true
+  },
+  {
+    "name": "320: mobile navigation scrolls, closes, and focuses the chapter",
+    "pass": true
+  },
+  {
+    "name": "320: Escape closes only the mobile menu and restores its focus",
+    "pass": true
+  },
+  {
+    "name": "320: no runtime exceptions",
+    "pass": true
+  },
+  {
+    "name": "390: readable responsive shell without horizontal overflow",
+    "pass": true
+  },
+  {
+    "name": "390: full 80vh scroll interval retained",
+    "pass": true
+  },
+  {
+    "name": "390: reduced motion retains poster without fetching video",
+    "pass": true
+  },
+  {
+    "name": "390: second-screen CTA scrolls to the inline solutions chapter",
+    "pass": true
+  },
+  {
+    "name": "390: every chapter is visible in continuous document order",
+    "pass": true
+  },
+  {
+    "name": "390: no modal, hidden chapter, nested scroller, or body scroll lock",
+    "pass": true
+  },
+  {
+    "name": "390: planner contact channels retained",
+    "pass": true
+  },
+  {
+    "name": "390: inquiry anchor remains clear of the fixed header",
+    "pass": true
+  },
+  {
+    "name": "390: mobile navigation scrolls, closes, and focuses the chapter",
+    "pass": true
+  },
+  {
+    "name": "390: Escape closes only the mobile menu and restores its focus",
+    "pass": true
+  },
+  {
+    "name": "390: no runtime exceptions",
+    "pass": true
+  },
+  {
+    "name": "768: readable responsive shell without horizontal overflow",
+    "pass": true
+  },
+  {
+    "name": "768: full 80vh scroll interval retained",
+    "pass": true
+  },
+  {
+    "name": "768: reduced motion retains poster without fetching video",
+    "pass": true
+  },
+  {
+    "name": "768: second-screen CTA scrolls to the inline solutions chapter",
+    "pass": true
+  },
+  {
+    "name": "768: every chapter is visible in continuous document order",
+    "pass": true
+  },
+  {
+    "name": "768: no modal, hidden chapter, nested scroller, or body scroll lock",
+    "pass": true
+  },
+  {
+    "name": "768: planner contact channels retained",
+    "pass": true
+  },
+  {
+    "name": "768: inquiry anchor remains clear of the fixed header",
+    "pass": true
+  },
+  {
+    "name": "768: no runtime exceptions",
+    "pass": true
+  },
+  {
+    "name": "1440: readable responsive shell without horizontal overflow",
+    "pass": true
+  },
+  {
+    "name": "1440: full 80vh scroll interval retained",
+    "pass": true
+  },
+  {
+    "name": "1440: reduced motion retains poster without fetching video",
+    "pass": true
+  },
+  {
+    "name": "1440: second-screen CTA scrolls to the inline solutions chapter",
+    "pass": true
+  },
+  {
+    "name": "1440: every chapter is visible in continuous document order",
+    "pass": true
+  },
+  {
+    "name": "1440: no modal, hidden chapter, nested scroller, or body scroll lock",
+    "pass": true
+  },
+  {
+    "name": "1440: planner contact channels retained",
+    "pass": true
+  },
+  {
+    "name": "1440: inquiry anchor remains clear of the fixed header",
+    "pass": true
+  },
+  {
+    "name": "1440: no runtime exceptions",
+    "pass": true
+  },
+  {
+    "name": "1932: readable responsive shell without horizontal overflow",
+    "pass": true
+  },
+  {
+    "name": "1932: full 80vh scroll interval retained",
+    "pass": true
+  },
+  {
+    "name": "1932: reduced motion retains poster without fetching video",
+    "pass": true
+  },
+  {
+    "name": "1932: second-screen CTA scrolls to the inline solutions chapter",
+    "pass": true
+  },
+  {
+    "name": "1932: every chapter is visible in continuous document order",
+    "pass": true
+  },
+  {
+    "name": "1932: no modal, hidden chapter, nested scroller, or body scroll lock",
+    "pass": true
+  },
+  {
+    "name": "1932: planner contact channels retained",
+    "pass": true
+  },
+  {
+    "name": "1932: inquiry anchor remains clear of the fixed header",
+    "pass": true
+  },
+  {
+    "name": "1932: no runtime exceptions",
+    "pass": true
+  },
+  {
+    "name": "Canvas cache loads with all external origins blocked",
+    "pass": true
+  },
+  {
+    "name": "Local mirror retains the exact supplied source bytes",
+    "pass": true
+  },
+  {
+    "name": "Video is scroll-driven without autoplay or looping",
+    "pass": true
+  },
+  {
+    "name": "Scrolling advances distinct decoded canvas frames",
+    "pass": true
+  },
+  {
+    "name": "Stopping scroll leaves the scene stationary",
+    "pass": true
+  },
+  {
+    "name": "Reverse scrolling restores the first frame",
+    "pass": true
+  },
+  {
+    "name": "Pause holds the background while the document scrolls",
+    "pass": true
+  },
+  {
+    "name": "Resuming catches up to current scroll position",
+    "pass": true
+  },
+  {
+    "name": "Scenario keyboard navigation retains the business plan",
+    "pass": true
+  },
+  {
+    "name": "Scenario selection carries into inquiry form",
+    "pass": true
+  },
+  {
+    "name": "Inquiry stays plain text, complete, and unsent",
+    "pass": true
+  },
+  {
+    "name": "Generated result receives focus and states unsent",
+    "pass": true
+  },
+  {
+    "name": "Mail draft retains Maggie and exact encoded summary",
+    "pass": true
+  },
+  {
+    "name": "Copy retains the exact inquiry text",
+    "pass": true
+  },
+  {
+    "name": "Download retains the inquiry text",
+    "pass": true
+  },
+  {
+    "name": "Navigating between chapters preserves the current inquiry",
+    "pass": true
+  },
+  {
+    "name": "Editing invalidates the old summary",
+    "pass": true
+  },
+  {
+    "name": "Missing target focuses the required choice",
+    "pass": true
+  },
+  {
+    "name": "Learning modes retain accessible keyboard controls",
+    "pass": true
+  },
+  {
+    "name": "All cross-domain article topics remain available",
+    "pass": true
+  },
+  {
+    "name": "Delivery steps, case and verified brand list retained",
+    "pass": true
+  },
+  {
+    "name": "FAQ answers remain expandable",
+    "pass": true
+  },
+  {
+    "name": "Video progress adapts to expanded content and new document height",
+    "pass": true
+  },
+  {
+    "name": "Browser back restores the previous inline chapter",
+    "pass": true
+  },
+  {
+    "name": "Browser forward restores the next inline chapter",
+    "pass": true
+  },
+  {
+    "name": "Footer returns to the top of the same page",
+    "pass": true
+  },
+  {
+    "name": "No runtime errors or hidden lead submission",
+    "pass": true
+  },
+  {
+    "name": "Seeking fallback scrubs correctly without frame-cache support",
+    "pass": true
+  },
+  {
+    "name": "Mobile uses a bounded, smaller frame cache",
+    "pass": true
+  },
+  {
+    "name": "Mobile cache renders later frames during scroll",
+    "pass": true
+  },
+  {
+    "name": "Production prefers CloudFront and recovers via the same-origin mirror",
+    "pass": true
+  },
+  {
+    "name": "Unavailable video retains the poster and inquiry entry",
+    "pass": true
+  },
+  {
+    "name": "Direct contact URL lands at the inline planner with no modal",
+    "pass": true
+  },
+  {
+    "name": "No-JS fallback retains email and phone",
+    "pass": true
+  }
+]

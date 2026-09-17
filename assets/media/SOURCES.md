@@ -1,6 +1,31 @@
 # Hero media
 
-## Active: workplace English learning scene
+## Active: NovaAI reference scroll video
+
+The user supplied a new scroll-recreation brief on 2026-09-17 and requested UI/UX
+adaptation for the existing enterprise-training content.
+
+- Exact source: https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260729_102822_0e6c87e8-c141-4744-bf32-ad30db296371.mp4
+- Local mirror: `enterprise-scroll.mp4`, unchanged original bytes.
+- H.264, 1920×1080, 24 fps, 10.041667 seconds; no audio stream.
+- Size: 10,321,675 bytes; MD5 matches source ETag: `806d3c91cd585a6e677514da5efca637`.
+- SHA-256: `9706ce8a7a83047654c0fb4833a413e6a7d164df09d1f7ae6b0d26f9d1d5e18e`.
+- First-frame JPEG: `enterprise-scroll-poster.jpg`, extracted with FFmpeg quality 2.
+- Poster SHA-256: `99fd547a8534eaa0752c1fc89d56d318639d01cc47b3019e7478160b72fd79f7`.
+
+Production prefers the exact CloudFront source; local preview uses the mirror.
+Network/CORS failure switches production to the same-origin copy. Reduced motion
+does not request the video. The player never autoplays or loops: page scroll maps
+to the video timeline. A maximum of 90 cached frames at 960px is used on desktop;
+mobile/low-memory devices use up to 48 at 640px. Unavailable caching falls back to
+seeking the video. All three visual layers share CSS brightness .46 to support
+white text over the unusually bright original. No opaque overlay or different
+video is introduced. The original bytes remain unmodified.
+
+The unrelated Mitha portrait in the reference is not used as a photograph of
+Maggie. The contact card uses the existing New Oriental mark.
+
+## Preserved: workplace English learning scene
 
 The user approved “learn → practice → apply” and requested one Atlas Cloud
 MiniMax H3 video on 2026-09-17. This is an AI-generated learning illustration,

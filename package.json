@@ -8,7 +8,9 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview --host 127.0.0.1 --port 4202",
     "typecheck": "tsc --noEmit",
-    "test": "node scripts/verify-react.mjs"
+    "test": "node scripts/verify-scroll.mjs && node scripts/verify-versions.mjs && node scripts/verify-white.mjs",
+    "test:white": "node scripts/verify-white.mjs",
+    "test:versions": "node scripts/verify-versions.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

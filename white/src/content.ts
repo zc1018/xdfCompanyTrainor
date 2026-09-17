@@ -1,13 +1,17 @@
-import newOriental from '../assets/brands/new-oriental.png';
-import expo from '../assets/brands/expo-2010.gif';
-import brics from '../assets/brands/brics-2017.jpg';
-import asianGames from '../assets/brands/hangzhou-asian-games.png';
-import boc from '../assets/brands/bank-of-china.png';
-import post from '../assets/brands/china-post.png';
-import ibm from '../assets/brands/ibm.png';
-import hsbc from '../assets/brands/hsbc.svg';
+import newOriental from '../../assets/brands/new-oriental.png';
+import expo from '../../assets/brands/expo-2010.gif';
+import brics from '../../assets/brands/brics-2017.jpg';
+import asianGames from '../../assets/brands/hangzhou-asian-games.png';
+import boc from '../../assets/brands/bank-of-china.png';
+import post from '../../assets/brands/china-post.png';
+import ibm from '../../assets/brands/ibm.png';
+import hsbc from '../../assets/brands/hsbc.svg';
+import heroVideo from '../../assets/media/enterprise-learning-h3.mp4';
+import heroPoster from '../../assets/media/enterprise-learning-h3-poster.jpg';
 
 export { newOriental };
+// Bespoke image2 + MiniMax H3 learning scene, served locally. Provenance: assets/media/SOURCES.md.
+export { heroVideo as VIDEO_URL, heroPoster as VIDEO_POSTER };
 export const planner = { name: '胡婷 Maggie', title: '企业培训规划师', email: 'huting20@xdf.cn', phone: '15811383545' } as const;
 
 export interface Brand { src: string; alt: string; relationship: string; gradient: { from: string; to: string }; imageClass?: string }

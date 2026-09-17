@@ -1,0 +1,150 @@
+[
+  {
+    "name": "White source preserved: src/App.tsx",
+    "pass": true
+  },
+  {
+    "name": "White source preserved: src/components/Contact.tsx",
+    "pass": true
+  },
+  {
+    "name": "White source preserved: src/components/Hero.tsx",
+    "pass": true
+  },
+  {
+    "name": "White source preserved: src/components/Learning.tsx",
+    "pass": true
+  },
+  {
+    "name": "White source preserved: src/components/Marquee.tsx",
+    "pass": true
+  },
+  {
+    "name": "White source preserved: src/components/Solutions.tsx",
+    "pass": true
+  },
+  {
+    "name": "White source preserved: src/content.ts",
+    "pass": true
+  },
+  {
+    "name": "White source preserved: src/index.css",
+    "pass": true
+  },
+  {
+    "name": "White source preserved: src/lib.ts",
+    "pass": true
+  },
+  {
+    "name": "White source preserved: src/main.tsx",
+    "pass": true
+  },
+  {
+    "name": "320: white background and original compact hero",
+    "pass": true
+  },
+  {
+    "name": "320: no cinematic scroll layer or modal",
+    "pass": true
+  },
+  {
+    "name": "320: original H3 media and logo marquee retained",
+    "pass": true
+  },
+  {
+    "name": "320: no horizontal overflow",
+    "pass": true
+  },
+  {
+    "name": "320: inquiry selection stays within white version",
+    "pass": true
+  },
+  {
+    "name": "320: original local-only inquiry works",
+    "pass": true
+  },
+  {
+    "name": "320: Maggie contact retained",
+    "pass": true
+  },
+  {
+    "name": "320: no runtime errors",
+    "pass": true
+  },
+  {
+    "name": "390: white background and original compact hero",
+    "pass": true
+  },
+  {
+    "name": "390: no cinematic scroll layer or modal",
+    "pass": true
+  },
+  {
+    "name": "390: original H3 media and logo marquee retained",
+    "pass": true
+  },
+  {
+    "name": "390: no horizontal overflow",
+    "pass": true
+  },
+  {
+    "name": "390: inquiry selection stays within white version",
+    "pass": true
+  },
+  {
+    "name": "390: original local-only inquiry works",
+    "pass": true
+  },
+  {
+    "name": "390: Maggie contact retained",
+    "pass": true
+  },
+  {
+    "name": "390: no runtime errors",
+    "pass": true
+  },
+  {
+    "name": "1440: white background and original compact hero",
+    "pass": true
+  },
+  {
+    "name": "1440: no cinematic scroll layer or modal",
+    "pass": true
+  },
+  {
+    "name": "1440: original H3 media and logo marquee retained",
+    "pass": true
+  },
+  {
+    "name": "1440: no horizontal overflow",
+    "pass": true
+  },
+  {
+    "name": "1440: inquiry selection stays within white version",
+    "pass": true
+  },
+  {
+    "name": "1440: original local-only inquiry works",
+    "pass": true
+  },
+  {
+    "name": "1440: Maggie contact retained",
+    "pass": true
+  },
+  {
+    "name": "1440: no runtime errors",
+    "pass": true
+  },
+  {
+    "name": "Dark scroll entry retains its own styles and full content",
+    "pass": true
+  },
+  {
+    "name": "White direct contact link is visible after returning from dark version",
+    "pass": true
+  },
+  {
+    "name": "Entry styles do not leak across versions",
+    "pass": true
+  }
+]

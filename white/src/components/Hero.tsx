@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowUpRight, ChevronRight, Pause, Play } from 'lucide-react';
-import VIDEO_URL from '../../assets/media/enterprise-learning-h3.mp4';
-import VIDEO_POSTER from '../../assets/media/enterprise-learning-h3-poster.jpg';
+import { VIDEO_URL, VIDEO_POSTER } from '../content';
 import { goToContact } from '../lib';
 
 interface Props { paused: boolean; reduceMotion: boolean; onToggle: () => void }

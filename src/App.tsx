@@ -1,56 +1,75 @@
-import { useEffect, useState } from 'react';
-import { MotionConfig, useReducedMotion } from 'motion/react';
-import { ArrowUpRight, Check, Plus } from 'lucide-react';
-import Hero from './components/Hero';
-import Marquee from './components/Marquee';
-import Solutions from './components/Solutions';
-import Learning from './components/Learning';
-import Contact from './components/Contact';
-import { faqs, newOriental, services, steps, type Goal } from './content';
-import { goToContact } from './lib';
+import { useCallback, useEffect, useState } from 'react';
+import { ArrowDown, ChevronRight, Menu, Pause, Play } from 'lucide-react';
+import ScrollVideo from './components/ScrollVideo';
+import Reveal, { useReveals } from './components/Reveal';
+import PageContent from './components/PageContent';
+import { newOriental, planner, services, type Goal } from './content';
+import { goToSection, isStaticVersion, type SectionId } from './lib';
+import poster from '../assets/media/enterprise-scroll-poster.jpg';
 
-function MobileInquiry() {
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    let heroVisible = true; let contactVisible = false;
-    const observer = new IntersectionObserver(entries => {
-      for (const entry of entries) {
-        if (entry.target.id === 'home') heroVisible = entry.isIntersecting;
-        if (entry.target.id === 'contact') contactVisible = entry.isIntersecting;
-      }
-      setVisible(!heroVisible && !contactVisible);
-    });
-    for (const id of ['home', 'contact']) { const element = document.getElementById(id); if (element) observer.observe(element); }
-    return () => observer.disconnect();
-  }, []);
-  return visible ? <a id="mobile-consult" href="#contact" className="fixed bottom-5 right-5 z-40 flex min-h-12 items-center gap-4 rounded-full border border-white/20 bg-[#0a152d] px-5 text-xs font-medium text-white shadow-lg md:hidden">咨询企业培训<ArrowUpRight size={16} aria-hidden="true" /></a> : null;
-}
+const links: { label: string; section: SectionId }[] = [{ label: '培训方案', section: 'solutions' }, { label: '学习方式', section: 'ai-reading' }, { label: '交付与案例', section: 'delivery' }, { label: '常见问题', section: 'faq' }];
+const capabilitySections: SectionId[] = ['solutions', 'ai-reading', 'delivery'];
 
 export default function App() {
-  const reduceMotion = useReducedMotion() ?? false;
-  const [userPaused, setUserPaused] = useState(false);
+  const [reduced, setReduced] = useState(() => matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const [paused, setPaused] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [goal, setGoal] = useState<Goal>('');
-  const paused = userPaused || reduceMotion;
-  return <MotionConfig reducedMotion="user">
-    <a href="#main" className="skip-link">跳至正文</a>
-    <div className="site-shell">
-      <header className="flex min-h-20 items-center justify-between gap-4 px-3 py-5 sm:px-6"><a href="#home" aria-label="新东方企业英语培训首页" className="flex items-center gap-4"><img src={newOriental} alt="新东方" width="104" height="41" className="w-[104px]" /><span className="border-l border-slate-200 pl-4 text-xs text-slate-500">企业英语培训</span></a><a href="#contact" className="hidden min-h-11 items-center gap-2 text-xs text-slate-500 hover:text-slate-900 sm:flex">联系企业培训规划师<ArrowUpRight size={14} aria-hidden="true" /></a></header>
-      <main id="main">
-        <Hero paused={paused} reduceMotion={reduceMotion} onToggle={() => setUserPaused(value => !value)} />
-        <Marquee paused={paused} />
-        <div className="content-shell">
-          <section className="service-overview grid gap-8 border-b border-slate-200/70 py-14 md:grid-cols-3 md:gap-10" aria-label="课程与服务">{services.map(([question, title, description]) => <div key={question}><p className="mb-3 text-[11px] tracking-wide text-slate-400">{question}</p><h2 className="text-base font-medium tracking-tight">{title}</h2><p className="mt-3 text-xs leading-6 text-slate-500">{description}</p></div>)}</section>
-          <Solutions onGoal={setGoal} />
-          <Learning />
-          <section id="delivery" className="section-shell" aria-labelledby="delivery-title"><div className="section-heading"><div><p className="eyebrow">03 / 项目交付</p><h2 id="delivery-title">员工有学习路径，<br />HR 有项目进度。</h2></div><p>从需求到结业，每个阶段都有安排。<br />看得见进展，也能及时调整。</p></div><ol className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">{steps.map(([title, description], index) => <li key={title} className="border-t border-slate-200 pt-5"><span className="font-display text-sm text-slate-400">0{index + 1}</span><h3 className="mt-5 text-lg font-medium">{title}</h3><p className="mt-3 text-xs leading-6 text-slate-500">{description}</p></li>)}</ol><div className="mt-10 flex flex-col gap-5 rounded-2xl bg-slate-100 p-6 sm:flex-row sm:items-center sm:justify-between"><div><p className="text-[11px] text-slate-400">HR 可以收到什么？</p><h3 className="mt-1 text-sm font-medium">每月项目反馈</h3></div><ul className="grid gap-x-6 gap-y-3 text-xs text-slate-500 sm:grid-cols-2">{['录播学习进度', '直播到课情况', '平均测试成绩', '项目沟通与后续安排'].map(item => <li key={item} className="flex items-center gap-2"><Check size={12} aria-hidden="true" />{item}</li>)}</ul></div>
-            <article className="mt-12 grid gap-8 rounded-[28px] border border-slate-200 bg-white p-7 sm:p-10 lg:grid-cols-2 lg:gap-16"><div><p className="eyebrow">方案示例 · 跨国香精香料企业</p><h3 className="text-2xl font-medium leading-relaxed">同一场全球会议，<br />听懂不同口音。</h3><p className="mt-5 text-sm leading-7 text-slate-500">面对法国、印尼、日本、韩国、新加坡等多国同事，员工需要完成真正有问有答的工作沟通。</p><button type="button" className="text-link mt-5" onClick={() => { setGoal('global'); goToContact(); }}>咨询类似培训方案<ArrowUpRight size={16} aria-hidden="true" /></button></div><dl>{[['培训对象', 'IT、HR、采购、销售及技术部门'], ['核心难点', '基础差异大、不同口音、部门专业词汇'], ['课程设计', '基础录播补强 + AI 外刊日常学习 + 小班直播场景演练'], ['训练目标', '听懂商务信息，参与跨部门对话与现场问答']].map(([term, description]) => <div key={term} className="grid grid-cols-[64px_1fr] gap-5 border-b border-slate-100 py-4 text-xs leading-6 last:border-0"><dt className="text-slate-400">{term}</dt><dd className="text-slate-600">{description}</dd></div>)}</dl></article>
-          </section>
-          <section id="faq" className="grid gap-8 pb-20 lg:grid-cols-[1fr_1.4fr] lg:gap-20" aria-labelledby="faq-title"><div><p className="eyebrow">04 / 常见问题</p><h2 id="faq-title" className="section-title">做决定前，<br />你可能想了解。</h2><a href="#contact" className="text-link mt-5">聊聊具体需求<ArrowUpRight size={16} aria-hidden="true" /></a></div><div>{faqs.map(([question, answer]) => <details key={question} className="border-b border-slate-200 first:border-t"><summary className="flex min-h-16 items-center justify-between gap-5 py-5 text-sm font-medium">{question}<Plus size={16} className="shrink-0" aria-hidden="true" /></summary><p className="pb-6 pr-5 text-sm leading-7 text-slate-500">{answer}</p></details>)}</div></section>
+  useReveals(!isStaticVersion);
+  useEffect(() => {
+    if (!menuOpen) return;
+    const close = (event: KeyboardEvent) => { if (event.key === 'Escape') { setMenuOpen(false); document.querySelector<HTMLButtonElement>('.menu-toggle')?.focus(); } };
+    window.addEventListener('keydown', close);
+    return () => window.removeEventListener('keydown', close);
+  }, [menuOpen]);
+  useEffect(() => {
+    const media = matchMedia('(prefers-reduced-motion: reduce)');
+    const sync = () => setReduced(media.matches);
+    media.addEventListener('change', sync);
+    const hash = () => { setMenuOpen(false); goToSection(location.hash.slice(1) || 'home', false, true); };
+    const initialAnchor = requestAnimationFrame(() => { if (location.hash) hash(); });
+    window.addEventListener('hashchange', hash); window.addEventListener('popstate', hash);
+    return () => { cancelAnimationFrame(initialAnchor); media.removeEventListener('change', sync); window.removeEventListener('hashchange', hash); window.removeEventListener('popstate', hash); };
+  }, []);
+  const navigate = useCallback((next: SectionId) => {
+    setMenuOpen(false);
+    goToSection(next);
+  }, []);
+
+  return <div className={`cinematic-page relative${isStaticVersion ? ' static-page' : ''}`} data-reduced={reduced}>
+    {isStaticVersion ? <div className="scroll-video fixed inset-0 z-0 overflow-hidden bg-[#0a0a0a] pointer-events-none" aria-hidden="true"><img src={poster} alt="" width="1920" height="1080" fetchPriority="high" className="scroll-poster" /></div> : <ScrollVideo reduced={reduced} paused={paused} />}
+    <a className="skip-link" href="#main">跳至正文</a>
+    <div className="relative z-10">
+      <header className="site-nav fixed inset-x-0 top-0 z-50 border-b border-white/15">
+        <div className="nav-row px-5 sm:px-8 md:px-12">
+          <Reveal><a href="#home" className="brand-lockup" aria-label="新东方企业英语培训首页"><img src={newOriental} width="104" height="41" alt="新东方" /><span>企业英语培训</span></a></Reveal>
+          <nav aria-label="主导航" className="hidden items-center gap-8 md:flex lg:gap-10">{links.map(({ label, section: target }, i) => <Reveal key={target} delay={100 + i * 100}><a href={`#${target}`} onClick={event => { if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return; event.preventDefault(); navigate(target); }} className="nav-link">{label}{i === 0 ? <sup className="ml-1.5 font-mono text-[10px] text-white/60">3</sup> : null}</a></Reveal>)}</nav>
+          <div className="flex items-center gap-2"><Reveal delay={500}><button className="nav-consult" onClick={() => navigate('contact')}>咨询企业培训</button></Reveal><button className="menu-toggle md:hidden" aria-label={menuOpen ? '关闭导航菜单' : '打开导航菜单'} aria-expanded={menuOpen} aria-controls="mobile-navigation" onClick={() => setMenuOpen(!menuOpen)}><Menu size={20} /></button></div>
         </div>
-        <Contact goal={goal} onGoal={setGoal} />
+        {menuOpen ? <nav id="mobile-navigation" aria-label="移动导航" className="mobile-navigation md:hidden">{links.map(({ label, section: target }) => <a key={target} href={`#${target}`} onClick={event => { event.preventDefault(); navigate(target); }}>{label}<ChevronRight size={14} /></a>)}</nav> : null}
+      </header>
+      <main id="main">
+        <section id="home" className="cinematic-section px-5 pb-12 pt-24 sm:px-8 sm:pt-28 md:px-12 md:pb-16" aria-labelledby="hero-title">
+          <div className="section-top flex flex-col justify-between gap-8 sm:flex-row">
+            <div className="flex flex-col gap-2">{['AI 外刊 · 日常积累', '定制直播 · 场景实练', '分层学习 · 岗位应用'].map((label, i) => <Reveal key={label} delay={150 + i * 120}><p className="service-label font-mono text-xs uppercase tracking-[0.15em] text-white/90 drop-shadow-md">/ {label}</p></Reveal>)}</div>
+            <Reveal delay={300} className="max-w-xs sm:text-right"><p className="intro-copy text-lg leading-relaxed text-white drop-shadow-md sm:text-xl">从英文会议、客户沟通，<br />到员工日常提升。<br />把英语学习，安排进工作节奏。</p></Reveal>
+          </div>
+          <div className="section-bottom flex flex-col justify-between gap-8 md:flex-row md:items-end">
+            <div><Reveal delay={150}><span className="accent-badge mb-5">NEW ORIENTAL · CORPORATE LEARNING</span></Reveal><Reveal delay={280}><h1 id="hero-title" className="cinematic-title text-5xl font-normal tracking-tight text-white drop-shadow-lg sm:text-6xl lg:text-7xl">英语学得会，<br />工作用得上。</h1></Reveal><Reveal delay={420}><a href="#capability" className="scroll-cue">向下探索培训方案<ArrowDown size={14} aria-hidden="true" /></a></Reveal></div>
+            <Reveal delay={420}><div className="planner-card flex items-center gap-4 rounded-xl bg-white/15 p-3 backdrop-blur-md"><div className="planner-mark h-24 w-20 rounded-lg" aria-hidden="true"><img src={newOriental} alt="" /><span>CORPORATE<br />LEARNING</span></div><div className="flex flex-col gap-1.5 pr-2"><p className="text-sm font-medium text-white">和 {planner.name} 聊一聊</p><p className="font-mono text-[10px] uppercase tracking-[0.15em] text-white/70">{planner.title}</p><button className="primary-cta mt-1.5" onClick={() => navigate('contact')}>聊聊培训需求<ChevronRight size={14} aria-hidden="true" /></button></div></div></Reveal>
+          </div>
+        </section>
+        {isStaticVersion ? null : <div className="scroll-spacer h-[80vh]" aria-hidden="true" />}
+        <section id="capability" className="cinematic-section capability-section px-5 pb-12 pt-24 sm:px-8 sm:pt-28 md:px-12 md:pb-16" aria-labelledby="capability-title">
+          <div className="section-top flex flex-col justify-between gap-8 sm:flex-row"><Reveal delay={120}><span className="accent-badge">从团队需求出发</span></Reveal><Reveal delay={220} className="max-w-sm sm:text-right"><p className="intro-copy text-lg leading-relaxed text-white drop-shadow-md sm:text-xl">不必先研究课程。<br />从员工最需要用英语的地方开始，<br />匹配基础、岗位与学习时间。</p></Reveal></div>
+          <div className="capability-bottom flex flex-1 flex-col justify-end gap-12 md:flex-row md:items-end md:justify-between md:gap-16">
+            <div className="max-w-xl"><Reveal delay={180}><h2 id="capability-title" className="cinematic-title text-5xl font-normal tracking-tight text-white drop-shadow-lg sm:text-6xl lg:text-7xl">学进日常，<br />用在现场。</h2></Reveal><Reveal delay={320}><p className="capability-copy mt-6 max-w-md text-sm leading-relaxed text-white/80 drop-shadow-md sm:text-base">AI 外刊、定制小班、1v1 与基础录播，<br className="hidden sm:block" />组合成适合团队的学习路径。<br />从日常输入到开口表达，让练习贴近真实工作。</p></Reveal><Reveal delay={420}><div className="mt-8 flex flex-wrap gap-3"><button className="primary-cta main-cta" onClick={() => navigate('solutions')}>找到适合的方案<ChevronRight size={14} aria-hidden="true" /></button><button className="secondary-cta" onClick={() => navigate('contact')}>咨询培训规划师</button></div></Reveal></div>
+            <div className="capability-panel w-full max-w-md rounded-2xl border border-white/15 bg-white/10 px-5 backdrop-blur-md sm:px-6">{services.map(([label, title, body], i) => <Reveal key={label} delay={300 + i * 110}><button className="capability-row group flex w-full gap-5 py-5 text-left" onClick={() => navigate(capabilitySections[i])}><span className="pt-1 font-mono text-[11px] tracking-[0.15em] text-white/55">0{i + 1}</span><span className="min-w-0 flex-1"><span className="flex items-center justify-between gap-4 text-base font-medium text-white sm:text-lg">{title}<ChevronRight size={16} className="shrink-0 text-white/40 transition duration-300 group-hover:translate-x-0.5 group-hover:text-white" aria-hidden="true" /></span><span className="mt-1.5 block text-sm leading-relaxed text-white/70">{body}</span></span></button></Reveal>)}</div>
+          </div>
+        </section>
+        <PageContent goal={goal} onGoal={setGoal} onNavigate={navigate} />
       </main>
-      <footer className="flex flex-wrap items-center justify-between gap-5 px-5 py-9 text-[11px] text-slate-400"><a href="#home" className="flex items-center gap-4"><img src={newOriental} alt="新东方" width="80" height="31" className="w-20" /><span>© 2026 · 企业英语培训</span></a><span>AI 外刊精读 · 定制直播 · 1v1 · 基础录播</span></footer>
     </div>
-    <MobileInquiry />
-  </MotionConfig>;
+    {isStaticVersion ? null : <button className="motion-control" onClick={() => setPaused(!paused)} disabled={reduced} aria-label={reduced ? '已按系统设置关闭滚屏动效' : paused ? '开启滚屏动效' : '暂停滚屏动效'} aria-pressed={paused || reduced}>{paused || reduced ? <Play size={14} aria-hidden="true" /> : <Pause size={14} aria-hidden="true" />}<span>{reduced ? '静态浏览' : paused ? '动效已暂停' : '滚动探索'}</span></button>}
+  </div>;
 }
