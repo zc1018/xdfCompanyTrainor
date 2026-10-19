@@ -23,7 +23,7 @@ white text over the unusually bright original. No opaque overlay or different
 video is introduced. The original bytes remain unmodified.
 
 The unrelated Mitha portrait in the reference is not used as a photograph of
-Maggie. The contact card uses the existing New Oriental mark.
+胡经理。The contact card uses the existing New Oriental mark.
 
 ## Preserved: workplace English learning scene
 

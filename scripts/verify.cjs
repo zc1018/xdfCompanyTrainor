@@ -124,7 +124,7 @@ async function snapshot(page, name) {
     check('UTF-8 download contains complete inquiry', (await fs.readFile(path.join(output, 'verified-inquiry.txt'), 'utf8')).includes(summary));
     await page.locator('#company').fill('新的测试团队');
     check('Editing a field hides stale summary', !(await page.locator('#inquiry-result').isVisible()));
-    check('Confirmed planner identity is visible', await page.locator('#planner-name').textContent() === '胡婷 Maggie' && (await page.locator('#sales-channels h3').textContent()) === '企业培训规划师' && !(await page.locator('#sales-pending').isVisible()));
+    check('Confirmed planner identity is visible', await page.locator('#planner-name').textContent() === '胡经理' && (await page.locator('#sales-channels h3').textContent()) === '企业培训规划师' && !(await page.locator('#sales-pending').isVisible()));
     check('Confirmed contact links match supplied details', await page.locator('#sales-links a[href="mailto:huting20@xdf.cn"]').count() === 1 && await page.locator('#sales-links a[href="tel:15811383545"]').count() === 1);
     const emailDraft = new URL(await page.locator('#email-summary').getAttribute('href'));
     check('Production email draft preserves exact recipient and inquiry', emailDraft.pathname === 'huting20@xdf.cn' && emailDraft.searchParams.get('body') === summary && emailDraft.searchParams.get('subject') === '企业英语培训需求咨询');
@@ -152,7 +152,7 @@ async function snapshot(page, name) {
     const nojsPage = await nojs.newPage();
     await nojsPage.goto(url);
     check('No-JS form cannot send default GET request', await nojsPage.locator('.form-submit').isDisabled());
-    check('No-JS contact details remain available', await nojsPage.locator('#planner-name').textContent() === '胡婷 Maggie' && await nojsPage.locator('#sales-links a[href="mailto:huting20@xdf.cn"]').isVisible() && await nojsPage.locator('#sales-links a[href="tel:15811383545"]').isVisible() && !(await nojsPage.locator('#sales-pending').isVisible()));
+    check('No-JS contact details remain available', await nojsPage.locator('#planner-name').textContent() === '胡经理' && await nojsPage.locator('#sales-links a[href="mailto:huting20@xdf.cn"]').isVisible() && await nojsPage.locator('#sales-links a[href="tel:15811383545"]').isVisible() && !(await nojsPage.locator('#sales-pending').isVisible()));
     await nojsPage.locator('.course-catalog summary').click();
     check('No-JS catalogue remains available', await nojsPage.locator('.catalog-grid').isVisible());
     await nojs.close();

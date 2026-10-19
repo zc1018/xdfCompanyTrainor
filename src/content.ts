@@ -8,7 +8,7 @@ import ibm from '../assets/brands/ibm.png';
 import hsbc from '../assets/brands/hsbc.svg';
 
 export { newOriental };
-export const planner = { name: '胡婷 Maggie', title: '企业培训规划师', email: 'huting20@xdf.cn', phone: '15811383545' } as const;
+export const planner = { name: '胡经理', title: '企业培训规划师', email: 'huting20@xdf.cn', phone: '15811383545' } as const;
 
 export interface Brand { src: string; alt: string; relationship: string; gradient: { from: string; to: string }; imageClass?: string }
 // Original marks and relationship evidence: assets/brands/SOURCES.md. Not a claim of current endorsement.

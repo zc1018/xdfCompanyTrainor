@@ -136,7 +136,7 @@ try {
   check('Inquiry stays plain text, complete, and unsent', summary.includes('业务表达') && summary.includes('21–50 人') && summary.includes('<img') && await page.locator('img[src="x"]').count() === 0 && posts === 0);
   check('Generated result receives focus and states unsent', (await page.locator('#result-title').textContent()).includes('尚未发送') && await page.locator('#result-title').evaluate(el => document.activeElement === el));
   const mail = new URL(await page.locator('#email-summary').getAttribute('href'));
-  check('Mail draft retains Maggie and exact encoded summary', mail.pathname === 'huting20@xdf.cn' && mail.searchParams.get('body') === summary);
+  check('Mail draft retains planner recipient and exact encoded summary', mail.pathname === 'huting20@xdf.cn' && mail.searchParams.get('body') === summary);
   await page.getByRole('button', { name: '复制摘要', exact: true }).click();
   check('Copy retains the exact inquiry text', await page.evaluate(() => navigator.clipboard.readText()) === summary);
   const downloading = page.waitForEvent('download');

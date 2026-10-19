@@ -244,7 +244,7 @@
     "pass": true
   },
   {
-    "name": "Mail draft retains Maggie and exact encoded summary",
+    "name": "Mail draft retains planner recipient and exact encoded summary",
     "pass": true
   },
   {

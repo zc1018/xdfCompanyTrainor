@@ -9,7 +9,7 @@ const modes = [
   ['影子跟读', '从听懂走向开口', '练习重音、语调和流利度。'],
 ] as const;
 const footers = ['读懂词义，也记住用法', '先找主干，再理解细节', '听见表达，再把它说出来'];
-export default function Learning() {
+export default function Learning({ onConsult }: { onConsult: () => void }) {
   const [active, setActive] = useState(0);
   function keydown(e: KeyboardEvent<HTMLButtonElement>, index: number) {
     let next: number | undefined;
@@ -27,5 +27,6 @@ export default function Learning() {
       </div><div className="flex flex-wrap justify-between gap-2 border-t border-slate-100 px-6 py-4 text-[11px] text-slate-500 sm:px-8"><span>{footers[active]}</span><span className="text-slate-400">非实时测评 · 非音频播放</span></div></div>
     </div>
     <div className="mt-14 flex flex-wrap items-center justify-between gap-3 border-t border-slate-300/50 pt-8"><h3 className="text-sm font-medium">话题不止于职场</h3><p className="text-xs text-slate-400">跨领域选题示例 · 可按行业定制</p></div><ul className="mt-5 grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3">{topics.map(([topic, title]) => <li key={topic} className="flex items-center gap-4 border-b border-slate-300/50 py-5"><span className="text-[11px] text-slate-400">{topic}</span><h4 className="text-sm">{title}</h4><ArrowUpRight size={13} className="ml-auto text-slate-400" aria-hidden="true" /></li>)}</ul>
+    <div className="mt-7 flex flex-wrap items-center justify-between gap-4"><p className="max-w-md text-sm leading-7 text-slate-600">外刊积累阅读与表达素材，搭配 AI 口语外教练听说、单词训练营补词汇。</p><button type="button" className="text-link" onClick={onConsult}>咨询 AI 外刊精读方案<ArrowUpRight size={16} aria-hidden="true" /></button></div>
   </section>;
 }

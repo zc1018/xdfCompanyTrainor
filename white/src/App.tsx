@@ -5,8 +5,9 @@ import Hero from './components/Hero';
 import Marquee from './components/Marquee';
 import Solutions from './components/Solutions';
 import Learning from './components/Learning';
+import AiServices from './components/AiServices';
 import Contact from './components/Contact';
-import { faqs, newOriental, services, steps, type Goal } from './content';
+import { aiProjects, faqs, newOriental, services, steps, type Goal, type LearningProject } from './content';
 import { goToContact } from './lib';
 
 function MobileInquiry() {
@@ -30,7 +31,12 @@ export default function App() {
   const reduceMotion = useReducedMotion() ?? false;
   const [userPaused, setUserPaused] = useState(false);
   const [goal, setGoal] = useState<Goal>('');
+  const [interest, setInterest] = useState<LearningProject | ''>('');
   const paused = userPaused || reduceMotion;
+  function consultProject(project: LearningProject) {
+    setInterest(project);
+    goToContact();
+  }
   return <MotionConfig reducedMotion="user">
     <a href="#main" className="skip-link">跳至正文</a>
     <div className="site-shell">
@@ -40,16 +46,21 @@ export default function App() {
         <Marquee paused={paused} />
         <div className="content-shell">
           <section className="service-overview grid gap-8 border-b border-slate-200/70 py-14 md:grid-cols-3 md:gap-10" aria-label="课程与服务">{services.map(([question, title, description]) => <div key={question}><p className="mb-3 text-[11px] tracking-wide text-slate-400">{question}</p><h2 className="text-base font-medium tracking-tight">{title}</h2><p className="mt-3 text-xs leading-6 text-slate-500">{description}</p></div>)}</section>
+          <nav className="ai-project-links" aria-label="AI 学习项目">
+            {aiProjects.map(project => <a key={project.id} href={`#${project.anchor}`}><div><strong>{project.name}</strong><span>{project.focus}</span></div><ArrowUpRight size={16} aria-hidden="true" /></a>)}
+          </nav>
           <Solutions onGoal={setGoal} />
-          <Learning />
-          <section id="delivery" className="section-shell" aria-labelledby="delivery-title"><div className="section-heading"><div><p className="eyebrow">03 / 项目交付</p><h2 id="delivery-title">员工有学习路径，<br />HR 有项目进度。</h2></div><p>从需求到结业，每个阶段都有安排。<br />看得见进展，也能及时调整。</p></div><ol className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">{steps.map(([title, description], index) => <li key={title} className="border-t border-slate-200 pt-5"><span className="font-display text-sm text-slate-400">0{index + 1}</span><h3 className="mt-5 text-lg font-medium">{title}</h3><p className="mt-3 text-xs leading-6 text-slate-500">{description}</p></li>)}</ol><div className="mt-10 flex flex-col gap-5 rounded-2xl bg-slate-100 p-6 sm:flex-row sm:items-center sm:justify-between"><div><p className="text-[11px] text-slate-400">HR 可以收到什么？</p><h3 className="mt-1 text-sm font-medium">每月项目反馈</h3></div><ul className="grid gap-x-6 gap-y-3 text-xs text-slate-500 sm:grid-cols-2">{['录播学习进度', '直播到课情况', '平均测试成绩', '项目沟通与后续安排'].map(item => <li key={item} className="flex items-center gap-2"><Check size={12} aria-hidden="true" />{item}</li>)}</ul></div>
+          <Learning onConsult={() => consultProject('reading')} />
+          <AiServices onConsult={consultProject} />
+          <section id="delivery" className="section-shell" aria-labelledby="delivery-title"><div className="section-heading"><div><p className="eyebrow">05 / 项目交付</p><h2 id="delivery-title">员工有学习路径，<br />HR 有项目进度。</h2></div><p>从需求到结业，每个阶段都有安排。<br />看得见进展，也能及时调整。</p></div><ol className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">{steps.map(([title, description], index) => <li key={title} className="border-t border-slate-200 pt-5"><span className="font-display text-sm text-slate-400">0{index + 1}</span><h3 className="mt-5 text-lg font-medium">{title}</h3><p className="mt-3 text-xs leading-6 text-slate-500">{description}</p></li>)}</ol><div className="mt-10 flex flex-col gap-5 rounded-2xl bg-slate-100 p-6 sm:flex-row sm:items-center sm:justify-between"><div><p className="text-xs text-slate-500">HR 可以收到什么？</p><h3 className="mt-1 text-sm font-medium">按项目约定反馈</h3></div><ul className="grid gap-x-6 gap-y-3 text-xs text-slate-600 sm:grid-cols-2">{['AI 学习记录与任务回顾', '录播进度与直播到课', '阶段测试与学习反馈', '项目沟通与后续安排'].map(item => <li key={item} className="flex items-center gap-2"><Check size={12} aria-hidden="true" />{item}</li>)}</ul></div>
+            <p className="mt-4 text-xs leading-6 text-slate-600">AI 口语可回看练习记录；单词训练营提供个人学习日历与周报。企业需要的汇总方式、反馈频次和服务范围，在项目启动前共同确认。</p>
             <article className="mt-12 grid gap-8 rounded-[28px] border border-slate-200 bg-white p-7 sm:p-10 lg:grid-cols-2 lg:gap-16"><div><p className="eyebrow">方案示例 · 跨国香精香料企业</p><h3 className="text-2xl font-medium leading-relaxed">同一场全球会议，<br />听懂不同口音。</h3><p className="mt-5 text-sm leading-7 text-slate-500">面对法国、印尼、日本、韩国、新加坡等多国同事，员工需要完成真正有问有答的工作沟通。</p><button type="button" className="text-link mt-5" onClick={() => { setGoal('global'); goToContact(); }}>咨询类似培训方案<ArrowUpRight size={16} aria-hidden="true" /></button></div><dl>{[['培训对象', 'IT、HR、采购、销售及技术部门'], ['核心难点', '基础差异大、不同口音、部门专业词汇'], ['课程设计', '基础录播补强 + AI 外刊日常学习 + 小班直播场景演练'], ['训练目标', '听懂商务信息，参与跨部门对话与现场问答']].map(([term, description]) => <div key={term} className="grid grid-cols-[64px_1fr] gap-5 border-b border-slate-100 py-4 text-xs leading-6 last:border-0"><dt className="text-slate-400">{term}</dt><dd className="text-slate-600">{description}</dd></div>)}</dl></article>
           </section>
-          <section id="faq" className="grid gap-8 pb-20 lg:grid-cols-[1fr_1.4fr] lg:gap-20" aria-labelledby="faq-title"><div><p className="eyebrow">04 / 常见问题</p><h2 id="faq-title" className="section-title">做决定前，<br />你可能想了解。</h2><a href="#contact" className="text-link mt-5">聊聊具体需求<ArrowUpRight size={16} aria-hidden="true" /></a></div><div>{faqs.map(([question, answer]) => <details key={question} className="border-b border-slate-200 first:border-t"><summary className="flex min-h-16 items-center justify-between gap-5 py-5 text-sm font-medium">{question}<Plus size={16} className="shrink-0" aria-hidden="true" /></summary><p className="pb-6 pr-5 text-sm leading-7 text-slate-500">{answer}</p></details>)}</div></section>
+          <section id="faq" className="grid gap-8 pb-20 lg:grid-cols-[1fr_1.4fr] lg:gap-20" aria-labelledby="faq-title"><div><p className="eyebrow">06 / 常见问题</p><h2 id="faq-title" className="section-title">做决定前，<br />你可能想了解。</h2><a href="#contact" className="text-link mt-5">聊聊具体需求<ArrowUpRight size={16} aria-hidden="true" /></a></div><div>{faqs.map(([question, answer]) => <details key={question} className="border-b border-slate-200 first:border-t"><summary className="flex min-h-16 items-center justify-between gap-5 py-5 text-sm font-medium">{question}<Plus size={16} className="shrink-0" aria-hidden="true" /></summary><p className="pb-6 pr-5 text-sm leading-7 text-slate-500">{answer}</p></details>)}</div></section>
         </div>
-        <Contact goal={goal} onGoal={setGoal} />
+        <Contact goal={goal} onGoal={setGoal} interest={interest} onInterest={setInterest} />
       </main>
-      <footer className="flex flex-wrap items-center justify-between gap-5 px-5 py-9 text-[11px] text-slate-400"><a href="#home" className="flex items-center gap-4"><img src={newOriental} alt="新东方" width="80" height="31" className="w-20" /><span>© 2026 · 企业英语培训</span></a><span>AI 外刊精读 · 定制直播 · 1v1 · 基础录播</span></footer>
+      <footer className="flex flex-wrap items-center justify-between gap-5 px-5 py-9 text-[11px] text-slate-400"><a href="#home" className="flex items-center gap-4"><img src={newOriental} alt="新东方" width="80" height="31" className="w-20" /><span>© 2026 · 企业英语培训</span></a><span className="max-w-lg leading-6">AI 外刊精读 · AI 口语外教 · 单词训练营 · 定制直播 · 1v1 · 基础录播</span></footer>
     </div>
     <MobileInquiry />
   </MotionConfig>;

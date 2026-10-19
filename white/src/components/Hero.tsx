@@ -32,7 +32,7 @@ export default function Hero({ paused, reduceMotion, onToggle }: Props) {
       <motion.div initial={reduceMotion ? false : { opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }} className="max-w-[580px]">
         <p className="hero-eyebrow mb-6 text-[11px] font-semibold tracking-[0.16em] text-slate-500">NEW ORIENTAL · CORPORATE LEARNING</p>
         <h1 id="hero-title" className="font-display text-[42px] md:text-[56px] font-medium tracking-tight text-[#0a1b33] leading-[1.3]">英语学得会，<br />工作用得上。</h1>
-        <p className="hero-description mt-6 max-w-[390px] font-sans text-[14px] md:text-[15px] leading-[1.9] text-[#64748b]">从英文会议、客户沟通，到员工日常提升。<br className="hidden sm:block" />按岗位与基础设计课程，<br className="hidden sm:block" />把学习安排进工作节奏。</p>
+        <p className="hero-description mt-6 max-w-[390px] font-sans text-[14px] md:text-[15px] leading-[1.9] text-[#64748b]">阅读输入、口语对话、词汇积累，搭配直播训练。<br className="hidden sm:block" />按岗位与基础组合课程，<br className="hidden sm:block" />把学习安排进工作节奏。</p>
         <motion.button type="button" onClick={goToContact} whileHover={reduceMotion ? undefined : { scale: 1.04 }} whileTap={reduceMotion ? undefined : { scale: 0.98 }} className="hero-cta mt-8 inline-flex min-h-12 items-center gap-6 rounded-full bg-[#0a152d] px-7 py-3.5 text-sm font-medium text-white">聊聊企业培训需求<ArrowUpRight size={17} aria-hidden="true" /></motion.button>
         <p className="hero-note mt-4 text-xs text-slate-500">先明确目标，再匹配课程与预算</p>
       </motion.div>
